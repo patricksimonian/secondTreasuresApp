@@ -1,17 +1,21 @@
 require('dotenv').config();
 const path = require('path');
-const Sequelize = require('sequelize');
 const express = require('express');
-const app = express();
-const db = require('./db/db.js');
+const bodyParser = require('body-parser');
+const cloudinary = require('cloudinary');
+//get config by environment
 const config = require('./config/config.js')();
 const port = config.PORT || 3000;
-const bodyParser = require('body-parser');
-
+//initiate server
+const app = express();
+//get database instance
+const db = require('./db/db.js');
+//set cloudinary config
+cloudinary.config(config.cloudinary);
 // routers
 const bookRoutes = require('./routes/books.js');
 
-app.use('/books', bookRoutes);
+app.use('/books', bookRoutes(db, cloudinary));
 // middlewares
 // parse json data
 app.use(bodyParser.json())

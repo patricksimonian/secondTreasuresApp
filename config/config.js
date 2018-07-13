@@ -9,7 +9,12 @@ var config = {
     db_user: p.DB_USER,
     db_password: p.DB_PASSWORD,
     database: p.DB_DATABASE,
-    db_host: p.DB_HOST
+    db_host: p.DB_HOST,
+    cloudinary: {
+      cloud_name: p.CLOUD_NAME,
+      api_key: p.CLOUDINARY_ACCESS_KEY,
+      api_secret: p.CLOUDINARY_SECRET_KEY
+    }
   },
   default: {
     port: p.PORT,
@@ -17,7 +22,12 @@ var config = {
     db_user: p.DB_USER,
     db_password: p.DB_PASSWORD,
     database: p.DB_DATABASE,
-    db_host: p.DB_HOST
+    db_host: p.DB_HOST,
+    cloudinary: {
+      cloud_name: p.CLOUD_NAME,
+      api_key: p.CLOUDINARY_ACCESS_KEY,
+      api_secret: p.CLOUDINARY_SECRET_KEY
+    }
   }
 }
 
