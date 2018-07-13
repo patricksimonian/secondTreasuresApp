@@ -1,11 +1,19 @@
-Promise = require('bluebird');
+Promise =  require('bluebird');
+const beautifyIsbn = require('beautify-isbn');
 
 module.exports = (db, cloudinary) => {
   const Book = db.books;
   const Author = db.authors;
   return  {
     allBook: (req, res) => {
-       Book.all({include: [{model: Author, as: 'authors'}]})
+       Book.all({
+         include: [{model: Author, as: 'authors'}],
+         attributes: {
+           include: [
+             [beautifyIsbn.hyphenate(db.sequelize.col('isbn')), 'isbn_formatted']
+           ]
+         }
+       })
        .then(books => {
          //map books to json
          const booksJSON = books.map(book => {
@@ -35,6 +43,7 @@ module.exports = (db, cloudinary) => {
       })
       .catch((err) => {
         //book couldn't be destroyed but this is okay
+        console.error(err);
         res.sendStatus(400);
       })
     },
@@ -66,9 +75,10 @@ module.exports = (db, cloudinary) => {
         });
       })
       .then(() => {
-        res.send("ok");
+        res.send(JSON.stringify({created: true}));
       })
       .catch(error => {
+        console.error(error);
         res.sendStatus(400);
       });
     }
