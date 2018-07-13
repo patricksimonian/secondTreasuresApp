@@ -1,21 +1,18 @@
 const express = require('express');
 const router = express.Router();
-
+Promise = require('bluebird');
+const bookHandlers = require('../routeHandlers/bookHandlers.js');
 
 
 module.exports = (db, cloudinary) => {
+  const handlers = bookHandlers(db, cloudinary);
   router.get('/', (req, res) => {
     //get all books
     res.sendStatus(200);
   });
 
-  router.post('/', (req, res) => {
-    //adds a particular book
-    cloudinary.uploader.upload("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==", (result) => {
-      console.log(result)
-      res.sendStatus(200);
-    });
-  });
+  //adds a particular book
+  router.post('/', handlers.create);
 
   router.get('/:isbn', (req, res) => {
     //gets a particular book

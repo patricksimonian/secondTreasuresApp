@@ -25,7 +25,7 @@ db.books.hasMany(db.ratings);
 db.ratings.belongsTo(db.books, {foreignKey: 'book_isbn'});
 db.admins.hasOne(db.employees);
 
-db.books.belongsToMany(db.authors, {through: 'book_authors', foreignKey: 'book_isbn'});
-db.authors.belongsToMany(db.books, {through: 'book_authors', foreignKey: 'author_id'});
+db.books.belongsToMany(db.authors, {as:'authors', through: 'book_authors', foreignKey: 'book_isbn'});
+db.authors.belongsToMany(db.books, {as:'books', through: 'book_authors', foreignKey: 'author_id'});
 
 module.exports = db;

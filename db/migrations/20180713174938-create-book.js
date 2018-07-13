@@ -9,22 +9,26 @@ module.exports = {
         type: Sequelize.STRING(13)
       },
       title: {
-        type: Sequelize.STRING(45)
+        type: Sequelize.STRING(45),
+        allowNull: false
       },
       genre: {
-        type: Sequelize.STRING(25)
+        type: Sequelize.STRING(25),
+        allowNull: false
       },
       price: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: true
       },
-      img_path: {
-        type: Sequelize.STRING(1000)
+      img_url: {
+        type: Sequelize.STRING(1000),
+        allowNull: false
       },
-      createdAt: {
+      created_at: {
         allowNull: false,
         type: Sequelize.DATE
       },
-      updatedAt: {
+      updated_at: {
         allowNull: false,
         type: Sequelize.DATE
       }

@@ -9,6 +9,7 @@
   "author": "Patrick Simonian",
   "license": "MIT",
   "dependencies": {
+    "bluebird": "^3.5.1",
     "body-parser": "^1.18.3",
     "cloudinary": "^1.11.0",
     "dotenv": "^6.0.0",

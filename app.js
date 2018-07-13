@@ -14,12 +14,11 @@ const db = require('./db/db.js');
 cloudinary.config(config.cloudinary);
 // routers
 const bookRoutes = require('./routes/books.js');
-
-app.use('/books', bookRoutes(db, cloudinary));
 // middlewares
 // parse json data
 app.use(bodyParser.json())
 // routes
+app.use('/books', bookRoutes(db, cloudinary));
 
 db.sequelize.sync().then(() => {
   app.listen(config.port, () => {

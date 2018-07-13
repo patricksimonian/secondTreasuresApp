@@ -4,7 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     book_isbn: DataTypes.STRING,
     rating: DataTypes.INTEGER,
     user_key: DataTypes.STRING
-  }, {});
+  }, {
+    underscored: true
+  });
   Rating.associate = function(models) {
     // associations can be defined here
   };
