@@ -10,7 +10,7 @@ gulp.task('js',function(){
 });
 
 gulp.task('server', function (cb) {
-  const called = false;
+  let called = false;
   return nodemon({script: 'app.js',
       ignore: [
         'gulpfile.js',
@@ -26,7 +26,7 @@ gulp.task('server', function (cb) {
   })
 });
 
-gulp.task('default', ['js', 'browser-sync', 'server'], function () {
+gulp.task('default', ['js', 'server'], function () {
     gulp.watch('routeHandlers/**/*.js', ['js']);
     gulp.watch('routes/**/*.js', ['server']);
     gulp.watch('routeHandlers/**/*.js', ['server']);
