@@ -4,10 +4,20 @@ require('dotenv').config();
 const p = process.env;
 var config = {
   production: {
-    database: `${p.DB_HOST}://${p.DB_USER}:${p.DB_PASSWORD}:5432/${p.DB_DATABASE}`
+    port: p.PORT,
+    dialect: 'mysql',
+    db_user: p.DB_USER,
+    db_password: p.DB_PASSWORD,
+    database: p.DB_DATABASE,
+    db_host: p.DB_HOST
   },
   default: {
-    database: database: `${p.DB_HOST}://${p.DB_USER}:${p.DB_PASSWORD}:5432/${p.DB_DATABASE}`
+    port: p.PORT,
+    dialect: 'mysql',
+    db_user: p.DB_USER,
+    db_password: p.DB_PASSWORD,
+    database: p.DB_DATABASE,
+    db_host: p.DB_HOST
   }
 }
 
