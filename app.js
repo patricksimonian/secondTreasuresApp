@@ -9,6 +9,9 @@ const port = config.PORT || 3000;
 const bodyParser = require('body-parser');
 
 // routers
+const bookRoutes = require('./routes/books.js');
+
+app.use('/books', bookRoutes);
 // middlewares
 // parse json data
 app.use(bodyParser.json())
