@@ -4,7 +4,7 @@ import {Route, Switch} from 'react-router-dom';
 import asyncComponent from './hoc/asyncComponent/asyncComponent';
 
 //components/containers
-import BookClub from './containers/BookClub';
+import BookClub from './containers/BookClub/BookClub';
 //code split checkout since it won't be used initially
 
 

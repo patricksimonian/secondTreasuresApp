@@ -50,5 +50,31 @@
                 }
             ],
             "isbn_formatted": "978-0-7535-5520-0"
+        },
+        {
+            "isbn": "9788700631625",
+            "title": "Harry Potter and the Philosopher's Stone",
+            "genre": "Fantasy",
+            "price": 1293,
+            "img_url": "https://res.cloudinary.com/secondtreasures/image/upload/v1531593939/oxdshk5mxtvgabdigrzh.jpg",
+            "stock": 5,
+            "created_at": "2018-07-14T18:45:37.000Z",
+            "updated_at": "2018-07-14T18:45:37.000Z",
+            "authors": [
+                {
+                    "id": 3,
+                    "name": "JK.ROWLING",
+                    "bio": null,
+                    "created_at": "2018-07-14T18:45:37.000Z",
+                    "updated_at": "2018-07-14T18:45:37.000Z",
+                    "book_authors": {
+                        "created_at": "2018-07-14T18:45:37.000Z",
+                        "updated_at": "2018-07-14T18:45:37.000Z",
+                        "book_isbn": "9788700631625",
+                        "author_id": 3
+                    }
+                }
+            ],
+            "isbn_formatted": "978-87-00-63162-5"
         }
     ]
