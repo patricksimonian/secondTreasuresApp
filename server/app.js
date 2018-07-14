@@ -17,7 +17,15 @@ const bookRoutes = require('./routes/books.js');
 const authRoutes = require('./routes/auth.js');
 // middlewares
 // parse json data
-app.use(bodyParser.json())
+app.use(bodyParser.json());
+//ensure content type is always application/json
+app.use((req, res, next) => {
+  if(!req.is('application/json')) {
+    res.send(415);
+  } else {
+    next();
+  }
+});
 // routes
 app.use('/api/books', bookRoutes(db, cloudinary, config.jwt.secret));
 app.use('/api', authRoutes(db, config.jwt.secret));
