@@ -14,11 +14,13 @@ const db = require('./db/db.js');
 cloudinary.config(config.cloudinary);
 // routers
 const bookRoutes = require('./routes/books.js');
+const authRoutes = require('./routes/auth.js');
 // middlewares
 // parse json data
 app.use(bodyParser.json())
 // routes
 app.use('/books', bookRoutes(db, cloudinary));
+app.use('/', authRoutes(db, process.env.JWT_SECRET));
 
 db.sequelize.sync().then(() => {
   app.listen(config.port, () => {
