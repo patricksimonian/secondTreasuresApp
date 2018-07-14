@@ -1,4 +1,4 @@
-.BookDetail {
+.BasicDescription {
   position: absolute;
   left: 0;
   top: 0;
@@ -11,8 +11,8 @@
   cursor: pointer;
 }
 
-.BookDetail .author,
-.BookDetail .title {
+.BasicDescription .author,
+.BasicDescription .title {
   transition: transform .25s ease-out;
   box-sizing: border-box;
   margin: 0;
@@ -26,16 +26,16 @@
 
 @media (min-width: 500px) {
 
-  .BookDetail:hover .title,
-  .BookDetail:hover .author {
+  .BasicDescription:hover .title,
+  .BasicDescription:hover .author {
     transform: translateY(0);
   }
 
-  .BookDetail .title {
+  .BasicDescription .title {
     transform: translateY(-200%);
   }
 
-  .BookDetail .author {
+  .BasicDescription .author {
     transform: translateY(200%);
   }
 }
