@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 Promise = require('bluebird');
+
 const buildPayload = function(data, expiry) {
   return {
     payload: data,

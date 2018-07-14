@@ -9,7 +9,6 @@ const config = require('./config/config.js')();
 const port = config.PORT || 3000;
 //initiate server
 const app = express();
-console.log(config);
 //get database instance
 const db = require('./db/db.js')(config);
 //set cloudinary config

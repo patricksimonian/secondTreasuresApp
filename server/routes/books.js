@@ -13,12 +13,12 @@ module.exports = (db, cloudinary, jwtSecret) => {
     //do we have the auth header?
     const token = req.get('AUTHORIZATION');
     if(!token) {
-      res.status(401).send('AUTHORIZATION header not included');
+      res.status(401).json({success: false, message: ['AUTHORIZATION header not included']});
     } else {
       //check if token is valid
       jwt.verify(token)
       .then(() => next()) //valid token, we aren't binding any data to req as its not needed for app
-      .catch(() => res.status(401).send('Token invalid')); //invalid token
+      .catch(() => res.status(401).json({success: false, message: ['Token invalid or expired']})); //invalid token
     }
   });
   // AUTHENTICATED ROUTES BELOW

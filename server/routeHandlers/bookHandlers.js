@@ -13,13 +13,37 @@ module.exports = (db, cloudinary) => {
          //map books to json
          const booksJSON = books.map(book => {
            return {...book.toJSON(), isbn_formatted: book.isbn_formatted()}});
-         res.send(JSON.stringify(booksJSON));
+         res.json({
+           success: true,
+           data: booksJSON,
+           message: ['Books found']
+         });
+       })
+       .catch(err => {
+         //failed to load books
+         //very unlikely but we should notify admins that something is wrong with website
+         res.status(500).json({
+           success: false,
+           message: ['Unable to load Books']
+         });
        });
     },
     findBook: (req, res) => {
-      Book.findOne({where: {isbn: req.params.isbn}})
+      const isbn = beautifyIsbn.dehyphenate(req.params.isbn);
+      Book.findOne({where: {isbn}})
       .then(book => {
-        res.send(JSON.stringify(book.toJSON()))
+        res.json({
+          success: true,
+          data: book.toJSON(),
+          message: ['Book found']
+        });
+      })
+      .catch(err => {
+        //unable to find book
+        res.status(400).json({
+          success: false,
+          message: ['Unable to find book with isbn: ' + isbn]
+        });
       });
     },
     updateBook: (req, res) => {
@@ -31,15 +55,19 @@ module.exports = (db, cloudinary) => {
       Book.findOne({where: {isbn: req.params.isbn}})
       .then(book => book.destroy())
       .then((bookDeleted) => {
-        res.send(JSON.stringify({
+        res.json({
+          success: true,
           isbn: req.params.isbn,
           deleted: true
-        }));
+        });
       })
       .catch((err) => {
         //book couldn't be destroyed but this is okay
         console.error(err);
-        res.sendStatus(400);
+        res.status(400).json({
+          success: 'false',
+          message: ['Could not delete Book, Book may not exist']
+        });
       })
     },
     createBook: (req, res) => {
@@ -70,11 +98,17 @@ module.exports = (db, cloudinary) => {
         });
       })
       .then(() => {
-        res.send(JSON.stringify({created: true}));
+        res.json({success: true, message: 'Book added'});
       })
       .catch(error => {
-        console.error(error);
-        res.sendStatus(400);
+        let errRes = {
+          success: false,
+          message: ['Unable to create Book']
+        }
+        if(error.errors) {
+          errRes.message = error.errors.map(validationError => validationError.message);
+        }
+        res.status(400).json(errRes);
       });
     }
   }

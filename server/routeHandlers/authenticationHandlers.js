@@ -24,17 +24,24 @@ module.exports = (db, jwtSecret) => {
           };
           jwt.sign(payload, expdate)
           .then(token => {
-            res.send(JSON.stringify({
+            res.json({
               success: true,
-              token
-            }));
+              token,
+              message: ['Succesfully authenticated']
+            });
           })
           .catch(err => {
             //failed to create token
-            res.sendStatus(500);
+            res.status(500).json({
+              success: false,
+              message: ['Failed to create token']
+            });
           });
         } else {
-          res.sendStatus(401);
+          res.status(401).json({
+            success: false,
+            message: ['Failed to authenticate user']
+          });
         }
       });
     }
