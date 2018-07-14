@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import axios from 'axios';
+const axiosInstance = axios.create({})
 class App extends Component {
+  componentDidMount() {
+    axios.get('/api/books', {}, {headers: {"Content-Type": 'application/json'}})
+    .then(result => console.log(result));
+  }
   render() {
     return (
       <div className="App">
