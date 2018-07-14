@@ -6,8 +6,6 @@ module.exports = (db, cloudinary) => {
   const Author = db.authors;
   return  {
     allBook: (req, res) => {
-        console.log('===========CALLED=======\n\n\n');
-        console.log(db.sequelize.col('isbn'), "COLUMN YOO\n\n\n");
        Book.all({
          include: [{model: Author, as: 'authors'}]
        })
@@ -27,7 +25,7 @@ module.exports = (db, cloudinary) => {
     updateBook: (req, res) => {
       //updates book information and author information
       // Promise.all([Book.update(req.body)])
-      res.send("book updated");
+      res.send('book updated');
     },
     deleteBook: (req, res) => {
       Book.findOne({where: {isbn: req.params.isbn}})
