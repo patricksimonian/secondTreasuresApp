@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const bookHandlers = require('../routeHandlers/bookHandlers.js');
-const jwtAuthCheck = require('../helpers/isAuthenticated.js');
 
 module.exports = (db, cloudinary, jwtSecret) => {
+  const jwt = require('../helpers/jwt.js')(jwtSecret);
   const handlers = bookHandlers(db, cloudinary);
   //get all books
   router.get('/', handlers.allBook);
@@ -16,7 +16,7 @@ module.exports = (db, cloudinary, jwtSecret) => {
       res.status(401).send('AUTHORIZATION header not included');
     } else {
       //check if token is valid
-      jwtAuthCheck(token)
+      jwt.verify(token)
       .then(() => next()) //valid token, we aren't binding any data to req as its not needed for app
       .catch(() => res.status(401).send('Token invalid')); //invalid token
     }

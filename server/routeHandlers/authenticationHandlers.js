@@ -1,6 +1,8 @@
-const jwt = require('jsonwebtoken');
+
 const moment = require('moment');
 module.exports = (db, jwtSecret) => {
+  const jwt = require('../helpers/jwt.js')(jwtSecret); //personal promisfy wrapper on jwt sign and verify methods
+  const User = db.users;
   const Employee = db.employees;
   return  {
     login: (req, res) => {
@@ -8,31 +10,28 @@ module.exports = (db, jwtSecret) => {
       const username = req.body.username;
       const password = req.body.password;
       //attempt to find a user by username
-      Employee.findOne({where: {username}})
-      .then(employeeFound => {
+      User.findOne({where: {username}, include: [{model: Employee, as: 'employee'}]})
+      .then(userFound => {
         //does employees password match entered password?
-        if(employeeFound && employeeFound.password === password) {//will hash later!
+        if(userFound && userFound.validatePassword(password)) {//will hash later!
           //get date 1 day from now in seconds from epoch
-          const expdate = moment().add(1, 'days').unix()
+          const expdate = moment().add(1, 'days').unix();
           //create JWT and send back
-          jwt.sign({
-            payload: {
-              id: employeeFound.id,
-              authenticated_when: Date.now(),
-            },
-            exp: expdate
-          },
-          jwtSecret,
-          (err, token) => {
-            if(err) {
-              //failed to create token
-              res.sendStatus(500);
-            } else {
-              res.send(JSON.stringify({
-                success: true,
-                token
-              }));
-            }
+          const payload = {
+            id: userFound.id,
+            employee: userFound.employee instanceof Employee,
+            authenticated_when: Date.now()
+          };
+          jwt.sign(payload, expdate)
+          .then(token => {
+            res.send(JSON.stringify({
+              success: true,
+              token
+            }));
+          })
+          .catch(err => {
+            //failed to create token
+            res.sendStatus(500);
           });
         } else {
           res.sendStatus(401);

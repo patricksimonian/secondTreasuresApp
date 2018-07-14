@@ -15,16 +15,16 @@ const dbInstance = function(config) {
 
 
   //connect all models
-  db.admins = require('../models/admin.js')(sequelize, Sequelize);
+  db.employees = require('../models/employee.js')(sequelize, Sequelize);
   db.authors = require('../models/author.js')(sequelize, Sequelize);
   db.books = require('../models/book.js')(sequelize, Sequelize);
-  db.employees = require('../models/employee.js')(sequelize, Sequelize);
+  db.users = require('../models/user.js')(sequelize, Sequelize);
   db.ratings = require('../models/rating.js')(sequelize, Sequelize);
   //setup associations
   db.books.hasMany(db.ratings);
   db.ratings.belongsTo(db.books, {foreignKey: 'book_isbn'});
-  db.employees.hasOne(db.admins);
 
+  db.users.hasOne(db.employees, {foreignKey: 'user_id', targetKey: 'user_id', as: 'employee'});
   db.books.belongsToMany(db.authors, {as:'authors', through: 'book_authors', foreignKey: 'book_isbn'});
   db.authors.belongsToMany(db.books, {as:'books', through: 'book_authors', foreignKey: 'author_id'});
   return db;

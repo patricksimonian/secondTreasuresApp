@@ -1,19 +1,13 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   var Employee = sequelize.define('Employee', {
-    id: {
+    user_id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    username: {
-      allowNull: false,
-      unique: true,
-      type: DataTypes.STRING
-    },
-    name: DataTypes.STRING,
-    password: DataTypes.STRING
+    is_admin: DataTypes.BOOLEAN
   }, {
     underscored: true
   });
