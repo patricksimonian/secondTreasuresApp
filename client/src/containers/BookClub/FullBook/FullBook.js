@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import axiosBooks from '../../../axios-books';
 
-import Book from '../../../components/Books/Book/Book';
+import BookSummary from '../../../components/BookSummary/BookSummary';
 import Modal from '../../../components/UI/Modal/Modal';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 class FullBook extends Component {
@@ -33,7 +33,7 @@ class FullBook extends Component {
     if(!this.state.loadedBook) {
       book = <Spinner />
     } else {
-      book = <Book img_url={this.state.loadedBook.img_url} />
+      book = <BookSummary img_url={this.state.loadedBook.img_url} />
     }
     return (
         <Modal show={this.state.viewingBook} modalClosed={this.closeView}>

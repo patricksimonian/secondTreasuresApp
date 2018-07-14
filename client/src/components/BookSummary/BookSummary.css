@@ -1,0 +1,7 @@
+.BookSummary {
+  display: flex;
+}
+
+.BookSummary .Book {
+  margin: 10px;
+}
