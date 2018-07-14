@@ -1,6 +1,6 @@
 #SERVER IGNORES
-server/node_modules
-server/.env
+node_modules
+.env
 
 .DS_Store
 .AppleDouble
@@ -13,7 +13,7 @@ $RECYCLE.BIN/
 #CLIENT IGNORES
 
 client/node_modules
-client/.env
+.env
 # See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
