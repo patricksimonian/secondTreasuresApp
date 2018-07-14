@@ -14,6 +14,9 @@ var config = {
       cloud_name: p.CLOUD_NAME,
       api_key: p.CLOUDINARY_ACCESS_KEY,
       api_secret: p.CLOUDINARY_SECRET_KEY
+    },
+    jwt: {
+      secret: p.JWT_SECRET
     }
   },
   default: {
@@ -27,6 +30,9 @@ var config = {
       cloud_name: p.CLOUD_NAME,
       api_key: p.CLOUDINARY_ACCESS_KEY,
       api_secret: p.CLOUDINARY_SECRET_KEY
+    },
+    jwt: {
+      secret: p.JWT_SECRET
     }
   }
 }

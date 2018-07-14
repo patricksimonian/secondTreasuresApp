@@ -19,8 +19,8 @@ const authRoutes = require('./routes/auth.js');
 // parse json data
 app.use(bodyParser.json())
 // routes
-app.use('/books', bookRoutes(db, cloudinary));
-app.use('/', authRoutes(db, process.env.JWT_SECRET));
+app.use('/books', bookRoutes(db, cloudinary, config.jwt.secret));
+app.use('/', authRoutes(db, config.jwt.secret));
 
 db.sequelize.sync().then(() => {
   app.listen(config.port, () => {
