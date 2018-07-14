@@ -9,7 +9,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       book_isbn: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        references: {model: 'Books', key: 'isbn'}
       },
       rating: {
         type: Sequelize.INTEGER
