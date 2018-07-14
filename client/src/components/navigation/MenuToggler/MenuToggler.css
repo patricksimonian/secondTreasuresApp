@@ -1,0 +1,11 @@
+/*desktop styles*/
+@media (max-width: 499px) {
+  .DesktopOnly {
+    display: none;
+  }
+}
+@media (min-width: 500px) {
+  .MobileOnly {
+    display: none;
+  }
+}
