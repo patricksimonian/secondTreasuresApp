@@ -3,7 +3,7 @@
 const beautifyIsbn = require('beautify-isbn');
 
 module.exports = (sequelize, DataTypes) => {
-  var Book = sequelize.define('Book', {
+  const Book = sequelize.define('Book', {
     isbn: {
       type: DataTypes.STRING(13),
       primaryKey: true,
@@ -45,9 +45,13 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.INTEGER,
     img_url: DataTypes.STRING,
     stock: DataTypes.INTEGER
-  }, {
-    underscored: true
-  });
+    }, {underscored: true});
+
+  Book.prototype.isbn_formatted = function() {
+    const isbn = this.getDataValue('isbn');
+    return beautifyIsbn.hyphenate(isbn);
+  }
+
   Book.associate = function(models) {
     // associations can be defined here
   };

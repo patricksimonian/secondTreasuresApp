@@ -6,18 +6,15 @@ module.exports = (db, cloudinary) => {
   const Author = db.authors;
   return  {
     allBook: (req, res) => {
+        console.log('===========CALLED=======\n\n\n');
+        console.log(db.sequelize.col('isbn'), "COLUMN YOO\n\n\n");
        Book.all({
-         include: [{model: Author, as: 'authors'}],
-         attributes: {
-           include: [
-             [beautifyIsbn.hyphenate(db.sequelize.col('isbn')), 'isbn_formatted']
-           ]
-         }
+         include: [{model: Author, as: 'authors'}]
        })
        .then(books => {
          //map books to json
          const booksJSON = books.map(book => {
-           return {...book.toJSON()}});
+           return {...book.toJSON(), isbn_formatted: book.isbn_formatted()}});
          res.send(JSON.stringify(booksJSON));
        });
     },
