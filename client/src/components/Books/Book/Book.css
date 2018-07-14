@@ -1,0 +1,21 @@
+.Book {
+  margin: 35px;
+  box-sizing: border-box;
+  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.45);
+  text-align: center;
+  height: 350px;
+  position: relative;
+}
+.Book h2 {
+  font-size: 1rem;
+  margin: 0 0 10px;
+}
+.Book img {
+  height: 100%;
+}
+
+@media (min-width: 500px) {
+  .Book {
+    max-width: 250px;
+  }
+}

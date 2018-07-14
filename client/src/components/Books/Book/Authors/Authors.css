@@ -1,0 +1,11 @@
+.Authors {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: inherit;
+}
+
+.Authors li {
+  padding: 2px;
+  font-size: 12px;
+}
