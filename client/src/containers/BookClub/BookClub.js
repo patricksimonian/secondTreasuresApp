@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import axiosBooks from '../../axios-books';
 import * as actionCreators from '../../store/actions/index';
 //components
+import MainHeader from '../../components/MainHeader/MainHeader';
 import Books from '../../components/Books/Books';
 import FullBook from './FullBook/FullBook';
 import Spinner from '../../components/UI/Spinner/Spinner';
@@ -16,6 +17,16 @@ class BookClub extends Component {
   componentDidMount() {
     this.props.onInitBooks();
   }
+
+  componentDidUpdate() {
+    //if props.books is 0 we haven't been able to fetch any books..
+    //this could be intentional but also it could be by mistake that the database
+    //returned 0 rows.
+    //dispatch a call to server to notify admin (by email*** one day) that this has occured!
+    if(this.props.books !== null && this.props.books.length === 0) {
+      //dispatch axios call to to notify admin
+    }
+  }
   //book is clicked to view more details
   bookClickedHandler = (isbn) => {
       //push book route to history
@@ -24,13 +35,16 @@ class BookClub extends Component {
 
   render() {
     let books = null;
-    if(!this.props.books) {
+    if(this.props.books === null) {
       books = <Spinner>Loading</Spinner>;
+    } else if(this.props.books.length === 0) {
+      books = <h2>No Books Available Right now..we are working on it!</h2>
     } else {
       books = <Books books={this.props.books} viewBook={this.bookClickedHandler}/>;
     }
     return (
       <div>
+        <MainHeader />
         {books}
         <Route path='/books/:isbn' component={FullBook} />
       </div>
