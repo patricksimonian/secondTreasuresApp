@@ -9,6 +9,9 @@ import Modal from '../../../components/UI/Modal/Modal';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 class FullBook extends Component {
   static displayName = "[Component FullBook]";
+  state = {
+    editMode: true
+  }
 
   componentDidMount() {
     const isbn = this.props.match.params.isbn;
@@ -35,7 +38,8 @@ class FullBook extends Component {
               isbn={this.props.activeBook.isbn}
               genre={this.props.activeBook.genre}
               cost={this.props.activeBook.price}
-              stock={this.props.activeBook.stock}/>
+              stock={this.props.activeBook.stock}
+              editing={this.state.editMode}/>
     }
     return (
         <Modal show modalClosed={this.closeView}>
