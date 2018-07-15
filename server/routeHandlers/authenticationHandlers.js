@@ -40,7 +40,7 @@ module.exports = (db, jwtSecret) => {
         } else {
           res.status(401).json({
             success: false,
-            message: ['Failed to authenticate user']
+            message: ['Username or Password is incorrect']
           });
         }
       });
