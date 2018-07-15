@@ -16,7 +16,8 @@ const setActiveBook = (state, isbn) => {
     if(state.books) {
       const bookInd = state.books.findIndex(b => b.isbn === isbn);
       if(bookInd >= 0) {
-        const activeBook = {...state.books[bookInd], authors: {...state.books[bookInd].authors}}
+        const authors = [...state.books[bookInd].authors];
+        const activeBook = {...state.books[bookInd], authors}
         return updateObject(state, {activeBook});
       }
     }

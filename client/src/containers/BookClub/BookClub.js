@@ -14,7 +14,7 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 class BookClub extends Component {
   static displayName = "[Component BookClub]";
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.onInitBooks();
   }
 
@@ -49,7 +49,7 @@ class BookClub extends Component {
       <div>
         <MainHeader />
         {books}
-        <Route path='/books/:isbn' component={FullBook} />
+        {this.props.books !== null ? <Route path='/books/:isbn' component={FullBook} />: null}
       </div>
     )
   }
