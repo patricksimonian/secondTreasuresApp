@@ -8,7 +8,16 @@ const initialState = {
   messages: []
 }
 
-const setErrorWithMessages = (state, messages) => updateObject(state, {messages, error: true});
+const setErrorWithMessages = (state, messages) => {
+  //remove token from local storage
+  window.localStorage.removeItem('authToken');
+  return updateObject(state, {
+    messages,
+    error: true,
+    isAuthorized: false,
+    token: null}
+  )
+}
 //sets jwt token into store
 const setToken = (state, token) => {
   //set token into local storage as well as in store
@@ -23,10 +32,18 @@ const setToken = (state, token) => {
   }
 }
 
+const setIfLoggedIn = (state, token) => {
+  if(token) {
+    return setToken(state, token);
+  }
+  return state;
+}
+
 const reducer = (state = initialState, action) => {
   switch(action.type) {
     case actionTypes.LOGIN_FAILED: return setErrorWithMessages(state, action.payload.messages);
     case actionTypes.LOGIN_SUCCESS: return setToken(state, action.payload.token);
+    case actionTypes.LOGIN_INIT: return setIfLoggedIn(state, action.payload.token);
   }
   return state;
 }

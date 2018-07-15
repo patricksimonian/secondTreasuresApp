@@ -13,8 +13,12 @@ class FullBook extends Component {
   state = {
     editMode: true
   }
-
+  constructor(props) {
+    super(props);
+    console.log("in here");
+  }
   componentDidMount() {
+    console.log("mounting");
     const isbn = this.props.match.params.isbn;
     if(isbn) {
       if(!this.props.activeBook || this.props.activeBook.isbn !== isbn) {

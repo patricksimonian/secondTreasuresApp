@@ -5,5 +5,6 @@ export {
   deleteBook
 } from './bookClub';
 export {
-  login
+  login,
+  loginInit
 } from './auth'

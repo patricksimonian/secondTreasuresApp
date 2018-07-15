@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Layout from './hoc/Layout/Layout';
 import {Route, Switch} from 'react-router-dom';
-import asyncComponent from './hoc/asyncComponent/asyncComponent';
+
 
 //components/containers
 import BookClub from './containers/BookClub/BookClub';

@@ -2,11 +2,12 @@ import React, {Component} from 'react';
 import Aux from '../../hoc/auxillary/auxillary';
 import Toolbar from '../../components/navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/navigation/SideDrawer/SideDrawer';
+import {connect} from 'react-redux';
 //styles
 import classes from './Layout.css';
 
 class Layout extends Component {
-  static displayName = "Main Layout";
+  static displayName = "[Component Main Layout]";
   state = {
     showSideDrawer: false
   }
@@ -22,8 +23,8 @@ class Layout extends Component {
   render() {
     return (
       <Aux>
-        <Toolbar sideDrawerOpen={this.SideDrawerOpenHandler}/>
-        <SideDrawer open={this.state.showSideDrawer} closed={this.SideDrawerClosedHandler}/>
+        <Toolbar isAuthorized={this.props.isAuthorized} sideDrawerOpen={this.SideDrawerOpenHandler}/>
+        <SideDrawer isAuthorized={this.props.isAuthorized} open={this.state.showSideDrawer} closed={this.SideDrawerClosedHandler}/>
         <main className={classes.Content}>
           {this.props.children}
         </main>
@@ -33,5 +34,13 @@ class Layout extends Component {
 }
 
 
+const mapStateToProps = state => {
+  return {
+    isAuthorized: state.auth.isAuthorized
+  };
+}
+const mapDispatchToProps = dispatch => {
+  return {};
+}
 
-export default Layout;
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);
