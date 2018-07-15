@@ -40,7 +40,9 @@ class FullBook extends Component {
   onConfirmDeleteHandler = () => {
     this.props.history.push(this.props.match.url + '/delete');
   }
-
+  confirmDelete = () => {
+    this.props.deleteBook(this.props.activeBook.isbn, this.props.token);
+  }
   render() {
     let bookSummary = <h2>No Book Found {":("}</h2>;
     //check if user is authorized, to conditionally render delete/edit buttons

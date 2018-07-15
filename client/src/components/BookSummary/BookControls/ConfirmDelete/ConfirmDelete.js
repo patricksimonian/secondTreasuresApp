@@ -1,17 +1,12 @@
 import React from 'react';
-import Modal from '../../../UI/Modal/Modal';
-import Button from '../../../UI/Button/Button';
-
+import Confirm from '../../../UI/Modal/Confirm/Confirm';
 const ConfirmDelete = (props) => (
-  <Modal show modalClosed={props.closeView}>
-    <h2>Are you sure you'd like to delete this book?</h2>
-    <Button
-      buttonType="Danger"
-      clicked={props.confirmDelete}>Delete</Button>
-    <Button
-      buttonType="Neutral"
-      clicked={props.goBack}>Go Back</Button>
-  </Modal>
+  <Confirm closeView={props.closeView}
+      message="Are you sure you'd like to delete this book?"
+      confirmed={props.confirmDelete}
+      confirmName="Delete"
+      canceled={props.goBack}
+      cancelName="Go Back"/>
 );
 
 export default ConfirmDelete;
