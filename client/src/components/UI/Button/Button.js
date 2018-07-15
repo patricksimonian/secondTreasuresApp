@@ -10,5 +10,5 @@ const button = (props) => (
 );
 
 button.displayName = '[Component Button]';
-button.PropTypes = {}
+button.propTypes = {}
 export default button;
