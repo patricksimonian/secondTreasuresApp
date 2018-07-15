@@ -7,6 +7,9 @@ import * as actionCreators from '../../store/actions/index';
 import Books from '../../components/Books/Books';
 import FullBook from './FullBook/FullBook';
 import Spinner from '../../components/UI/Spinner/Spinner';
+//hocs
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+
 class BookClub extends Component {
   static displayName = "[Component: BookClub]";
 
@@ -47,4 +50,4 @@ const mapDispatchToProps = dispatch => {
     onInitBooks: () => dispatch(actionCreators.initBooks())
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(BookClub);
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BookClub, axiosBooks));
