@@ -36,7 +36,10 @@ class BookClub extends Component {
   render() {
     let books = null;
     if(this.props.books === null) {
-      books = <Spinner>Loading</Spinner>;
+      books = (
+        <div style={{overflow: 'hidden'}}>
+          <Spinner>Loading</Spinner>
+        </div>);
     } else if(this.props.books.length === 0) {
       books = <h2>No Books Available Right now..we are working on it!</h2>
     } else {
