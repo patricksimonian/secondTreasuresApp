@@ -29,19 +29,24 @@ class Auth extends Component {
     //disable button if the input fields are empty
     const buttonEnabled = this.state.username.trim() !== '' && this.state.password.trim() !== '';
     return (
-      <Login
-        username={this.state.username}
-        password={this.state.password}
-        passwordChanged={this.passwordChangedHandler}
-        usernameChanged={this.usernameChangedHandler}
-        loginEnabled={buttonEnabled}
-        login={this.loginHandler}/>
+        <Login
+          username={this.state.username}
+          password={this.state.password}
+          passwordChanged={this.passwordChangedHandler}
+          usernameChanged={this.usernameChangedHandler}
+          loginEnabled={buttonEnabled}
+          login={this.loginHandler}
+          messages={this.props.errorMessages}/>
+
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    errorMessages: state.auth.messages,
+    isAuthorized: state.auth.isAuthorized
+  };
 }
 
 const mapDispatchToProps = (dispatch) => {

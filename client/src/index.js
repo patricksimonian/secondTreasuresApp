@@ -5,6 +5,7 @@ import {Provider} from 'react-redux';
 import thunk from 'redux-thunk'; //async action creator helper
 //reducers
 import bookClubReducer from './store/reducers/bookClub';
+import authReducer from './store/reducers/auth';
 //for react routing
 import {BrowserRouter} from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
@@ -12,7 +13,8 @@ import App from './App';
 import './index.css';
 //combine all reducers
 const rootReducer = combineReducers({
-  bc: bookClubReducer
+  bc: bookClubReducer,
+  auth: authReducer
 });
 //redux debugging
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

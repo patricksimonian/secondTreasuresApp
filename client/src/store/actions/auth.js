@@ -35,7 +35,7 @@ export const login = (username, password) => {
       dispatch(loginSuccess('test'));
     })
     .catch(err => {
-      dispatch(loginFailed(err.response.messages));
-    })
+      dispatch(loginFailed(err.response.data.message));
+    });
   }
 }
