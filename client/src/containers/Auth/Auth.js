@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {login} from '../../store/actions/index';
+import * as actionCreators from '../../store/actions/index';
 import Login from '../../components/Auth/Login/Login';
 class Auth extends Component {
   static displayName = "[Component Auth]";
@@ -21,7 +21,10 @@ class Auth extends Component {
   passwordChangedHandler = (event) => {
     this.setState({password: event.target.value});
   }
-
+  loginHandler = (event) => {
+    event.preventDefault();
+    this.props.login(this.state.username, this.state.password);
+  }
   render() {
     //disable button if the input fields are empty
     const buttonEnabled = this.state.username.trim() !== '' && this.state.password.trim() !== '';
@@ -32,7 +35,7 @@ class Auth extends Component {
         passwordChanged={this.passwordChangedHandler}
         usernameChanged={this.usernameChangedHandler}
         loginEnabled={buttonEnabled}
-        login={this.props.login}/>
+        login={this.loginHandler}/>
     );
   }
 }
@@ -43,9 +46,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: (username, password) => dispatch(login(username, password))
+    login: (username, password) => dispatch(actionCreators.login(username, password))
   };
 }
 
 
-export default Auth;
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

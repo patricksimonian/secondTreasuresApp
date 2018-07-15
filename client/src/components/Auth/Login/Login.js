@@ -5,7 +5,7 @@ import Button from '../../UI/Button/Button';
 const Login = (props) => (
   <div className={classes.Login}>
     <p>Employee Login Portal</p>
-    <form onSubmit={() => {props.login(this.state.username, this.state.password)}} >
+    <form onSubmit={props.login} >
       <Input
         type="text"
         placeholder="username"
@@ -17,7 +17,7 @@ const Login = (props) => (
         placeholder="password"
         value={props.password}
         onChange={props.passwordChanged} />
-      <Button buttonType="Success" buttonEnabled={props.buttonEnabled}>Login</Button>
+      <Button buttonType="Success" enabled={props.loginEnabled}>Login</Button>
     </form>
   </div>
 );
