@@ -8,6 +8,7 @@ import BookSummary from '../../../components/BookSummary/BookSummary';
 import Modal from '../../../components/UI/Modal/Modal';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Button from '../../../components/UI/Button/Button';
+import ConfirmDelete from '../../../components/BookSummary/BookControls/ConfirmDelete/ConfirmDelete';
 class FullBook extends Component {
   static displayName = "[Component FullBook]";
   state = {
@@ -41,11 +42,11 @@ class FullBook extends Component {
   }
 
   render() {
-    let book = <h2>No Book Found {":("}</h2>;
+    let bookSummary = <h2>No Book Found {":("}</h2>;
     //check if user is authorized, to conditionally render delete/edit buttons
     let deleteBookRedirect = this.props.isAuthorized ? null : <Redirect to={this.props.match.url} />
     if(this.props.activeBook) {
-      book = <BookSummary
+      bookSummary = <BookSummary
               img_url={this.props.activeBook.img_url}
               authors={this.props.activeBook.authors}
               title={this.props.activeBook.title}
@@ -61,21 +62,21 @@ class FullBook extends Component {
     return (
       <Aux>
         <Switch>
-          <Route path={this.props.match.url + "/delete"} render={() => (
-            <Modal show modalClosed={this.closeView}>
-              {deleteBookRedirect}
-              <h2>Are you sure you'd like to delete this book?</h2>
-              <Button
-                buttonType="Danger"
-                clicked={() => {this.props.deleteBook(this.props.activeBook.isbn, this.props.token)}}>Delete</Button>
-              <Button
-                buttonType="Neutral"
-                clicked={() => {this.props.history.goBack()}}>Go Back</Button>
-            </Modal>
-        )} />
+          <Route path={this.props.match.url + "/delete"} render={() => {
+              return (
+                <Aux>
+                  {deleteBookRedirect}
+                  <ConfirmDelete
+                    closeView={this.closeView}
+                    confirmDelete={this.confirmDelete}
+                    goBack={() => {this.props.history.goBack()}}/>
+                </Aux>
+              )
+            }} />
+
         <Route path={this.props.match.url} render={() => (
             <Modal show modalClosed={this.closeView}>
-              {book}
+              {bookSummary}
               <Button buttonType="Neutral" clicked={this.closeView}>Close</Button>
             </Modal>
           )} />
