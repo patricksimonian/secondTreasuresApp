@@ -11,4 +11,7 @@ const button = (props) => (
 
 button.displayName = '[Component Button]';
 button.propTypes = {}
+button.defaultProps = {
+  enabled: true
+}
 export default button;
