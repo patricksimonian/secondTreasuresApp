@@ -14,7 +14,7 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 class BookClub extends Component {
   static displayName = "[Component BookClub]";
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.onInitBooks();
   }
 
@@ -35,7 +35,7 @@ class BookClub extends Component {
 
   render() {
     let books = null;
-    if(this.props.books === null) {
+    if(this.props.books === null || this.props.loading) {
       books = (
         <div style={{overflow: 'hidden'}}>
           <Spinner>Loading</Spinner>
@@ -59,6 +59,7 @@ const mapStateToProps = state => {
   return {
     books: state.bc.books,
     error: state.bc.error,
+    loading: state.bc.loading,
     activeBook: state.bc.activeBook
   }
 }
