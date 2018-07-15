@@ -1,0 +1,12 @@
+.Login {
+  margin: auto;
+  width: 80%;
+}
+.Login p {
+  text-align: center;
+}
+@media (min-width: 500px) {
+  .Login {
+    max-width: 450px;
+  }
+}
