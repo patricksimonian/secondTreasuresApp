@@ -34,9 +34,12 @@ export const deleteBookStart = () => {
     type: actionTypes.DELETE_BOOK_START
   }
 }
-export const deleteBookSuccess = () => {
+export const deleteBookSuccess = (isbn) => {
   return {
-    type: actionTypes.DELETE_BOOK_SUCCESS
+    type: actionTypes.DELETE_BOOK_SUCCESS,
+    payload: {
+      isbn
+    }
   }
 }
 export const deleteBookFailed = () => {
@@ -59,15 +62,17 @@ export const initBooks = () => {
   }
 }
 
-export const deleteBook = (isbn) => {
+export const deleteBook = (isbn, token) => {
   return dispatch => {
     dispatch(deleteBookStart());
-    console.log(isbn, 'from action')
-    axiosBooks.delete('/' + isbn)
+    axiosBooks.delete('/' + isbn, {
+      headers: {'AUTHORIZATION': token}
+    })
     .then(response => {
-      dispatch(deleteBookSuccess());
+      dispatch(deleteBookSuccess(response.data.isbn));
     })
     .catch((err) => {
+      console.log(err);
       dispatch(deleteBookFailed(err)); //generally would fail if unauthenticated
     });
   }

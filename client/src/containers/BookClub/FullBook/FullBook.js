@@ -28,7 +28,7 @@ class FullBook extends Component {
     }
   }
   componentDidUpdate() {
-    if(this.props.error) {
+    if(this.props.error || this.props.refresh) {
       this.props.history.push('/');
     }
   }
@@ -63,7 +63,7 @@ class FullBook extends Component {
               <h2>Are you sure you'd like to delete this book?</h2>
               <Button
                 buttonType="Danger"
-                clicked={() => {this.props.deleteBook(this.props.activeBook.isbn)}}>Delete</Button>
+                clicked={() => {this.props.deleteBook(this.props.activeBook.isbn, this.props.token)}}>Delete</Button>
               <Button
                 buttonType="Neutral"
                 clicked={() => {this.props.history.goBack()}}>Go Back</Button>
@@ -84,14 +84,16 @@ class FullBook extends Component {
 const mapStateToProps = state => {
   return {
     activeBook: state.bc.activeBook,
-    error: state.bc.error
+    error: state.bc.error,
+    token: state.auth.token,
+    refresh: state.bc.bookDeleted
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     viewBook: (isbn) => dispatch(actionCreators.setActiveBook(isbn)),
-    deleteBook: (isbn) => dispatch(actionCreators.deleteBook(isbn))
+    deleteBook: (isbn, token) => dispatch(actionCreators.deleteBook(isbn, token))
   }
 }
 
