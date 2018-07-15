@@ -49,7 +49,7 @@ class BookClub extends Component {
       <div>
         <MainHeader />
         {books}
-        {this.props.books !== null ? <Route path='/books/:isbn' component={FullBook} />: null}
+        {this.props.books !== null ? <Route path="/books/:isbn" component={FullBook} />: null}
       </div>
     )
   }

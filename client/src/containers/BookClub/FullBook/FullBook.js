@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import {Route, Switch} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import axiosBooks from '../../../axios-books';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../store/actions/index';
-
+import Aux from '../../../hoc/auxillary/auxillary';
 import BookSummary from '../../../components/BookSummary/BookSummary';
 import Modal from '../../../components/UI/Modal/Modal';
 import Spinner from '../../../components/UI/Spinner/Spinner';
@@ -11,8 +12,7 @@ import Button from '../../../components/UI/Button/Button';
 class FullBook extends Component {
   static displayName = "[Component FullBook]";
   state = {
-    editMode: true,
-    deleting: false
+    editMode: true
   }
 
   componentDidMount() {
@@ -29,8 +29,8 @@ class FullBook extends Component {
     this.props.history.replace('/');
   }
 
-  onDeleteHandler = () => {
-    this.setState({deleting: true});
+  onConfirmDeleteHandler = () => {
+    this.props.history.push(this.props.match.url + '/delete');
   }
 
   render() {
@@ -46,13 +46,30 @@ class FullBook extends Component {
               cost={this.props.activeBook.price}
               stock={this.props.activeBook.stock}
               editing={this.state.editMode}
-              deleteClicked={this.onDeleteHandler}/>
+              deleteClicked={this.onConfirmDeleteHandler}/>
     }
     return (
-        <Modal show modalClosed={this.closeView}>
-            {book}
-            <Button buttonType='Neutral' clicked={this.closeView}>Close</Button>
-        </Modal>
+      <Aux>
+        <Switch>
+          <Route path={this.props.match.url + "/delete"} render={() => (
+            <Modal show modalClosed={this.closeView}>
+              <h2>Are you sure you'd like to delete this book?</h2>
+              <Button
+                buttonType="Danger"
+                clicked={() => {}}>Delete</Button>
+              <Button
+                buttonType="Neutral"
+                clicked={() => {this.props.history.goBack()}}>Go Back</Button>
+            </Modal>
+        )} />
+        <Route path={this.props.match.url} render={() => (
+            <Modal show modalClosed={this.closeView}>
+              {book}
+              <Button buttonType="Neutral" clicked={this.closeView}>Close</Button>
+            </Modal>
+          )} />
+        </Switch>
+      </Aux>
     )
   }
 }
@@ -65,7 +82,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    viewBook: (isbn) => dispatch(actionCreators.setActiveBook(isbn))
+    viewBook: (isbn) => dispatch(actionCreators.setActiveBook(isbn)),
+    deleteBook: (isbn) => dispatch(actionCreators.deleteBookStart(isbn))
   }
 }
 

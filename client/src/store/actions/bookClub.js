@@ -24,6 +24,12 @@ export const fetchBooksFailed = () => {
      type: actionTypes.FETCH_BOOKS_FAILED
    }
 }
+
+export const deleteBook = () => {
+  return {
+    type: actionTypes.DELETE_BOOK
+  }
+}
 //async actions leveraging thunk lib
 export const initBooks = () => {
   return dispatch => {
@@ -35,5 +41,11 @@ export const initBooks = () => {
     .catch(() => {
       dispatch(fetchBooksFailed());
     });
+  }
+}
+
+export const deleteBookStart = () => {
+  return dispatch => {
+    dispatch(deleteBook())
   }
 }

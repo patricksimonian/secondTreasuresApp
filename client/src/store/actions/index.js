@@ -1,5 +1,6 @@
 export {
   initBooks,
   fetchBooksFailed,
-  setActiveBook
+  setActiveBook,
+  deleteBookStart
 } from './bookClub';
