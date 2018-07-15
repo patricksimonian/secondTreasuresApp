@@ -10,8 +10,11 @@ class Auth extends Component {
     password: ''
   }
 
-  componentDidMount() {
-
+  componentDidUpdate() {
+    if(this.props.isAuthorized) {
+      //if successfully logged in redirect to home page
+      this.props.history.push('/');
+    }
   }
 
   usernameChangedHandler = (event) => {
@@ -21,10 +24,12 @@ class Auth extends Component {
   passwordChangedHandler = (event) => {
     this.setState({password: event.target.value});
   }
+
   loginHandler = (event) => {
     event.preventDefault();
     this.props.login(this.state.username, this.state.password);
   }
+
   render() {
     //disable button if the input fields are empty
     const buttonEnabled = this.state.username.trim() !== '' && this.state.password.trim() !== '';

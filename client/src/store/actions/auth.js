@@ -30,9 +30,8 @@ export const login = (username, password) => {
     dispatch(loginStart());
     axiosAuth.post('/api/login', {username, password})
     .then(response => {
-      //get token
-      console.log(response)
-      dispatch(loginSuccess('test'));
+      //dispatch token to reducer
+      dispatch(loginSuccess(response.data.token));
     })
     .catch(err => {
       dispatch(loginFailed(err.response.data.message));
