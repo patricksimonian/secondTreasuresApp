@@ -14,6 +14,7 @@ const Login = (props) => (
           key={formElement.id}
           elementType={formElement.config.elementType}
           elementConfig={formElement.config.elementConfig}
+          label={formElement.config.label}
           value={formElement.config.value}
           invalid={!formElement.config.valid}
           shouldValidate={formElement.config.validation}

@@ -8,8 +8,14 @@
     font-weight: bold;
     display: block;
     margin-bottom: 8px;
+    text-align: left;
 }
-
+.Message {
+  text-align: left;
+  padding: 5px;
+  background-color: #f4d56a;
+  color: #2e2e2e;
+}
 .InputElement {
     outline: none;
     border: 1px solid #ccc;

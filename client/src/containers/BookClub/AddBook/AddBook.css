@@ -1,11 +1,16 @@
 .AddBook {
   text-align: center;
+  width: 80%;
+  margin: 0 auto;
 }
 .AddBook .Form {
   display: flex;
   flex-flow: row-reverse wrap;
   align-items: flex-start;
   justify-content: center;
+}
+.AddBook form {
+  flex-grow: 1;
 }
 .AddBook .Preview {
   width: 250px;
@@ -15,6 +20,7 @@
   border-radius: 5px;
   position: relative;
   margin: 25px;
+  overflow: hidden;
 }
 
 .AddBook .Preview::before {
@@ -30,4 +36,11 @@
   background-position: 50% 50%;
   background-repeat:   no-repeat;
   background-size:     cover;
+}
+
+@media (min-width: 500px) {
+  .AddBook {
+    max-width: 700px;
+    width: 75%;
+  }
 }

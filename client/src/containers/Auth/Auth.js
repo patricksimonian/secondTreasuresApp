@@ -13,9 +13,9 @@ class Auth extends Component {
         elementType: 'input',
         elementConfig: {
             type: 'text',
-            placeholder: 'username',
-            label: 'Username'
+            placeholder: 'username'
         },
+        label: 'Username',
         value: '',
         validation: {
             required: true
@@ -27,9 +27,9 @@ class Auth extends Component {
         elementType: 'input',
         elementConfig: {
             type: 'password',
-            placeholder: 'password',
-            label: 'Password'
+            placeholder: 'password'
         },
+        label: 'Password',
         value: '',
         validation: {
             required: true
