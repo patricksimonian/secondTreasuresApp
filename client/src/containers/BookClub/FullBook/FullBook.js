@@ -24,7 +24,11 @@ class FullBook extends Component {
       }
     }
   }
-
+  componentDidUpdate() {
+    if(this.props.error) {
+      this.props.history.push('/');
+    }
+  }
   closeView = () => {
     this.props.history.replace('/');
   }

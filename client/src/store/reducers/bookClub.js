@@ -20,7 +20,7 @@ const setActiveBook = (state, isbn) => {
       if(bookInd >= 0) {
         const authors = [...state.books[bookInd].authors];
         const activeBook = {...state.books[bookInd], authors}
-        return updateObject(state, {activeBook});
+        return updateObject(state, {activeBook, error: false});
       }
     }
     return updateObject(state, {activeBook: null});
