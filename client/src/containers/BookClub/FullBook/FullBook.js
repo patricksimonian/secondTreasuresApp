@@ -27,7 +27,15 @@ class FullBook extends Component {
   render() {
     let book = <h2>No Book Found {":("}</h2>;
     if(this.props.activeBook) {
-      book = <BookSummary img_url={this.props.activeBook.img_url} />
+      book = <BookSummary
+              img_url={this.props.activeBook.img_url}
+              authors={this.props.activeBook.authors}
+              title={this.props.activeBook.title}
+              isbn_formatted={this.props.activeBook.isbn_formatted}
+              isbn={this.props.activeBook.isbn}
+              genre={this.props.activeBook.genre}
+              cost={this.props.activeBook.price}
+              stock={this.props.activeBook.stock}/>
     }
     return (
         <Modal show modalClosed={this.closeView}>
