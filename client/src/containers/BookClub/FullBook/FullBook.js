@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Route, Switch} from 'react-router-dom';
+import {Route, Switch, Redirect} from 'react-router-dom';
 import axiosBooks from '../../../axios-books';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../store/actions/index';
@@ -42,6 +42,8 @@ class FullBook extends Component {
 
   render() {
     let book = <h2>No Book Found {":("}</h2>;
+    //check if user is authorized, to conditionally render delete/edit buttons
+    let deleteBookRedirect = this.props.isAuthorized ? null : <Redirect to={this.props.match.url} />
     if(this.props.activeBook) {
       book = <BookSummary
               img_url={this.props.activeBook.img_url}
@@ -53,13 +55,15 @@ class FullBook extends Component {
               cost={this.props.activeBook.price}
               stock={this.props.activeBook.stock}
               editing={this.state.editMode}
-              deleteClicked={this.onConfirmDeleteHandler}/>
+              deleteClicked={this.onConfirmDeleteHandler}
+              isAuthorized={this.props.isAuthorized}/>
     }
     return (
       <Aux>
         <Switch>
           <Route path={this.props.match.url + "/delete"} render={() => (
             <Modal show modalClosed={this.closeView}>
+              {deleteBookRedirect}
               <h2>Are you sure you'd like to delete this book?</h2>
               <Button
                 buttonType="Danger"
@@ -86,7 +90,8 @@ const mapStateToProps = state => {
     activeBook: state.bc.activeBook,
     error: state.bc.error,
     token: state.auth.token,
-    refresh: state.bc.bookDeleted
+    refresh: state.bc.bookDeleted,
+    isAuthorized: state.auth.isAuthorized
   }
 }
 

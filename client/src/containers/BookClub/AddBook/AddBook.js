@@ -4,6 +4,7 @@ import * as actionCreators from '../../../store/actions/index';
 import classes from './AddBook.css';
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
+import {Redirect} from 'react-router-dom';
 class AddBook extends Component {
   static displayName = "[Component AddBook]";
 
@@ -20,9 +21,6 @@ class AddBook extends Component {
 
   }
 
-  componentDidMount() {
-
-  }
   componentDidUpdate() {
     if(this.props.bookAdded) {
       //simulate delay to fetch more books
@@ -78,8 +76,11 @@ class AddBook extends Component {
     if(this.props.bookAdded) {
       successIndicator = <div>Book Added!</div>
     }
+    //redirect user if unauthenticated
+    let authRedirect = this.props.isAuthorized ? null : <Redirect to="/" />;
     return (
       <div className={classes.AddBook}>
+        {authRedirect}
         {successIndicator}
         <h1>Add a Book</h1>
         <div className={classes.Form}>
@@ -111,7 +112,8 @@ class AddBook extends Component {
 const mapStateToProps = state => {
   return {
     token: state.auth.token,
-    bookAdded: state.bc.bookAdded
+    bookAdded: state.bc.bookAdded,
+    isAuthorized: state.auth.isAuthorized
   }
 }
 const mapDispatchToProps = dispatch => {

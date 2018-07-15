@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom';
 import * as actionCreators from '../../store/actions/index';
 import Login from '../../components/Auth/Login/Login';
+import Aux from '../../hoc/auxillary/auxillary';
 class Auth extends Component {
   static displayName = "[Component Auth]";
 
@@ -9,14 +11,6 @@ class Auth extends Component {
     username: '',
     password: ''
   }
-
-  componentDidUpdate() {
-    if(this.props.isAuthorized) {
-      //if successfully logged in redirect to home page
-      this.props.history.push('/');
-    }
-  }
-
   usernameChangedHandler = (event) => {
     this.setState({username: event.target.value});
   }
@@ -33,7 +27,11 @@ class Auth extends Component {
   render() {
     //disable button if the input fields are empty
     const buttonEnabled = this.state.username.trim() !== '' && this.state.password.trim() !== '';
+    //if user is authorized then set a redirect
+    const authRedirect = this.props.isAuthorized ? <Redirect to="/" /> : null;
     return (
+      <Aux>
+        {authRedirect}
         <Login
           username={this.state.username}
           password={this.state.password}
@@ -42,6 +40,7 @@ class Auth extends Component {
           loginEnabled={buttonEnabled}
           login={this.loginHandler}
           messages={this.props.errorMessages}/>
+      </Aux>
 
     );
   }
