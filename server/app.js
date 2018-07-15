@@ -23,7 +23,7 @@ app.use(express.static(path.join(__dirname, '../', '/client/build')));
 app.use(bodyParser.json());
 //ensure content type is always application/json
 app.use('/api', (req, res, next) => {
-  if(req.method !== 'GET' && !req.is('application/json')) {
+  if((req.method === 'PUT' || req.method === 'POST') && !req.is('application/json')) {
     res.sendStatus(415);
   } else {
     next();
