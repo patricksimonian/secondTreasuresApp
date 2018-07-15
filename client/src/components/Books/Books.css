@@ -5,15 +5,9 @@
   margin: auto;
   justify-content: center;
 }
-.Header {
-  margin: 0 auto 10px;
-  text-align: center;
-  width: 75%;
-  border-bottom: 3px solid #ccc;
-}
+
 @media (min-width: 500px) {
-  .Books,
-  .Header {
+  .Books {
     width: 80%;
     max-width: 1000px;
   }

@@ -1,0 +1,14 @@
+.FullDescription {
+  max-width: 235px;
+}
+.FullDescription h3 {
+  margin: 8px 0;
+}
+.FullDescription .Authors {
+  display: flex;
+  align-items: center;
+}
+
+.FullDescription .Authors p {
+  margin: 3px;
+}

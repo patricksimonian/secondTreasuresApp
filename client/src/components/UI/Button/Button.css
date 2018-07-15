@@ -1,11 +1,11 @@
 .Button {
     background-color: transparent;
-    border: none;
+    border: 1px solid #ccc;
     color: white;
     outline: none;
     cursor: pointer;
     font: inherit;
-    padding: 10px;
+    padding: 5px 7px;
     margin: 10px;
     font-weight: bold;
 }
@@ -21,4 +21,8 @@
 
 .Danger {
     color: #944317;
+}
+
+.Neutral {
+  color: #4e4e4e;
 }
