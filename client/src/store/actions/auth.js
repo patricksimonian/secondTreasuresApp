@@ -1,6 +1,12 @@
 import * as actionTypes from './actionTypes';
 import axiosAuth from '../../axios-auth';
 //sync actions
+export const logout = () => {
+  return {
+    type: actionTypes.LOGOUT
+  }
+}
+
 export const loginInit = () => {
   //attempt to get auth token from local storage if set
   //ideally if we find it, we will authenticate it on the backend

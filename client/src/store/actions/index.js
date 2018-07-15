@@ -7,5 +7,6 @@ export {
 } from './bookClub';
 export {
   login,
-  loginInit
+  loginInit,
+  logout
 } from './auth'
