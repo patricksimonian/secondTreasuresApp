@@ -9,6 +9,16 @@ export const setBooks = (books) => {
     }
   }
 }
+
+export const setActiveBook = (isbn) => {
+  return {
+    type: actionTypes.SET_ACTIVE_BOOK,
+    payload: {
+      isbn
+    }
+  }
+}
+
 export const fetchBooksFailed = () => {
    return {
      type: actionTypes.FETCH_BOOKS_FAILED

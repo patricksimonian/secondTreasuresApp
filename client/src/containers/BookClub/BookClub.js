@@ -12,7 +12,7 @@ import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 class BookClub extends Component {
-  static displayName = "[Component: BookClub]";
+  static displayName = "[Component BookClub]";
 
   componentDidMount() {
     this.props.onInitBooks();
@@ -58,7 +58,8 @@ class BookClub extends Component {
 const mapStateToProps = state => {
   return {
     books: state.bc.books,
-    error: state.bc.error
+    error: state.bc.error,
+    activeBook: state.bc.activeBook
   }
 }
 
