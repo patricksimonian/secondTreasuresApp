@@ -4,11 +4,13 @@ import {updateObject} from '../utility';
 const intialState = {
   books: null,
   error: false,
-  activeBook: null
+  activeBook: null,
+  loading: false
 }
+const setLoading = state => updateObject(state, {loading: true});
 //set books and reset error state to false
 const setBooks = (state, books) => {
-  return updateObject(state,  {books, error: false});
+  return updateObject(state,  {books, error: false, loading: false});
 }
 
 const setActiveBook = (state, isbn) => {
@@ -24,11 +26,12 @@ const setActiveBook = (state, isbn) => {
     return updateObject(state, {activeBook: null});
 }
 
-const setError = state => updateObject(state, {error: true});
+const setError = state => updateObject(state, {error: true, loading: false});
 
 const reducer = (state = intialState, action) => {
   switch(action.type) {
-    case actionTypes.SET_BOOKS: return setBooks(state, action.payload.books);
+    case actionTypes.FETCH_BOOKS_SUCCESS: return setBooks(state, action.payload.books);
+    case actionTypes.FETCH_BOOKS_START: return setLoading(state);
     case actionTypes.FETCH_BOOKS_FAILED: return setError(state);
     case actionTypes.SET_ACTIVE_BOOK: return setActiveBook(state, action.payload.isbn);
   }
