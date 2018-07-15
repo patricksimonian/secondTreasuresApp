@@ -28,12 +28,19 @@ const setActiveBook = (state, isbn) => {
 
 const setError = state => updateObject(state, {error: true, loading: false});
 
+const setBookDeleted = state => {
+  return updateObject(state, {activeBook: null});
+}
+
 const reducer = (state = intialState, action) => {
   switch(action.type) {
     case actionTypes.FETCH_BOOKS_SUCCESS: return setBooks(state, action.payload.books);
     case actionTypes.FETCH_BOOKS_START: return setLoading(state);
     case actionTypes.FETCH_BOOKS_FAILED: return setError(state);
     case actionTypes.SET_ACTIVE_BOOK: return setActiveBook(state, action.payload.isbn);
+    case actionTypes.DELETE_BOOK_START: return setLoading(state);
+    case actionTypes.DELETE_BOOK_SUCCESS: return setBookDeleted(state, action.payload.isbn);
+    case actionTypes.DELETE_BOOK_FAILED: return setError(state);
   }
   return state;
 }

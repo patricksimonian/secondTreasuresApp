@@ -59,8 +59,16 @@ export const initBooks = () => {
   }
 }
 
-export const deleteBook = () => {
+export const deleteBook = (isbn) => {
   return dispatch => {
-    dispatch(deleteBookSuccess())
+    dispatch(deleteBookStart());
+    console.log(isbn, 'from action')
+    axiosBooks.delete('/' + isbn)
+    .then(response => {
+      dispatch(deleteBookSuccess());
+    })
+    .catch((err) => {
+      dispatch(deleteBookFailed(err)); //generally would fail if unauthenticated
+    });
   }
 }
