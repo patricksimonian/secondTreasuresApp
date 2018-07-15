@@ -4,3 +4,6 @@ export {
   setActiveBook,
   deleteBook
 } from './bookClub';
+export {
+  login
+} from './auth'

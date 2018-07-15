@@ -16,14 +16,26 @@ export const loginSuccess = (token) => {
   }
 }
 
-export const loginFailed = () => {
+export const loginFailed = (messages) => {
   return {
-    type: actionTypes.LOGIN_FAILED
+    type: actionTypes.LOGIN_FAILED,
+    payload: {
+      messages
+    }
   }
 }
 //async
-export const login = () => {
+export const login = (username, password) => {
   return dispatch => {
     dispatch(loginStart());
+    axiosAuth.post('/api/login', {username, password})
+    .then(response => {
+      //get token
+      console.log(response)
+      dispatch(loginSuccess('test'));
+    })
+    .catch(err => {
+      dispatch(loginFailed(err.response.messages));
+    })
   }
 }
