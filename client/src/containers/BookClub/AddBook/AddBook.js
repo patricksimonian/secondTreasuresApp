@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../store/actions/index';
-import ImageUploader from 'react-images-upload';
+import classes from './AddBook.css';
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
 class AddBook extends Component {
@@ -79,26 +79,29 @@ class AddBook extends Component {
       successIndicator = <div>Book Added!</div>
     }
     return (
-      <div>
+      <div className={classes.AddBook}>
         {successIndicator}
-        <form onSubmit={this.onAddBookHandler}>
-          <Input onChange={this.imgChangedHandler} inputtype="input" type='text' placeholder='https://mypicture.com/picture.jpg' value={this.state.bookData.img_url}/>
-          <Input onChange={this.titleChangedHandler} inputtype="input" type='text' placeholder='Title' value={this.state.bookData.title}/>
-          <Input onChange={this.isbnChangedHandler} inputtype="input" type='text' placeholder='ISBN'value={this.state.bookData.isbn}/>
-          <select onChange={this.genreChangedHandler} value={this.state.bookData.genre}>
-            <option value="Fantasy">Fantasy</option>
-            <option value="Non-Fantasy">Non-Fiction</option>
-            <option value="Suspense">Suspense</option>
-            <option value="Thriller">Thriller</option>
-            <option value="Travel">Travel</option>
-          </select>
-          <Input onChange={this.authorChangedHandler} inputtype="input" type='text' placeholder='author' value={this.state.bookData.author}/>
-          <Input onChange={this.stockChangedHandler} inputtype="input" type='number' step="1" min="0" placeholder='stock' value={this.state.bookData.stock}/>
-          <Input onChange={this.priceChangedHandler} inputtype="input" type='number' step=".01" min="0" placeholder='price' value={this.state.bookData.price}/>
-          <Button buttonType="Success">Add Book!</Button>
-        </form>
-        <div>
-          {this.state.bookData.img_url.trim() !== '' ? <img src={this.state.bookData.img_url} alt="preview failed" /> : null}
+        <h1>Add a Book</h1>
+        <div className={classes.Form}>
+          <div className={classes.Preview}>
+            {this.state.bookData.img_url.trim() !== '' ? <img src={this.state.bookData.img_url} alt="preview failed" /> : null}
+          </div>
+          <form onSubmit={this.onAddBookHandler}>
+            <Input label="Image URL" onChange={this.imgChangedHandler} inputtype="input" type='text' placeholder='https://mypicture.com/picture.jpg' value={this.state.bookData.img_url}/>
+            <Input label="Title" onChange={this.titleChangedHandler} inputtype="input" type='text' placeholder='Title' value={this.state.bookData.title}/>
+            <Input label="ISBN" onChange={this.isbnChangedHandler} inputtype="input" type='text' placeholder='9788328700307'value={this.state.bookData.isbn}/>
+            <select onChange={this.genreChangedHandler} value={this.state.bookData.genre}>
+              <option value="Fantasy">Fantasy</option>
+              <option value="Non-Fantasy">Non-Fiction</option>
+              <option value="Suspense">Suspense</option>
+              <option value="Thriller">Thriller</option>
+              <option value="Travel">Travel</option>
+            </select>
+            <Input label="Author" onChange={this.authorChangedHandler} inputtype="input" type='text' placeholder='author' value={this.state.bookData.author}/>
+            <Input label="Stock" onChange={this.stockChangedHandler} inputtype="input" type='number' step="1" min="0" placeholder='stock' value={this.state.bookData.stock}/>
+            <Input label="Selling Price" onChange={this.priceChangedHandler} inputtype="input" type='number' step=".01" min="0" placeholder='price' value={this.state.bookData.price}/>
+            <Button buttonType="Success">Add Book!</Button>
+          </form>
         </div>
       </div>
     )
