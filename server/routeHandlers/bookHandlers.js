@@ -10,7 +10,6 @@ module.exports = (db, cloudinary) => {
          include: [{model: Author, as: 'authors'}]
        })
        .then(books => {
-         throw new Error('ygig');
          //map books to json
          const booksJSON = books.map(book => {
            return {...book.toJSON(), isbn_formatted: book.isbn_formatted()}});
