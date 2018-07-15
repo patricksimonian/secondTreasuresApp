@@ -47,6 +47,27 @@ export const deleteBookFailed = () => {
     type: actionTypes.DELETE_BOOK_FAILED
   }
 }
+
+export const addBookStart = () => {
+  return {
+    type: actionTypes.ADD_BOOK_START
+  }
+}
+
+export const addBookSuccess = () => {
+  return {
+    type: actionTypes.ADD_BOOK_SUCCESS
+  }
+}
+
+export const addBookFailed = (messages) => {
+  return {
+    type: actionTypes.ADD_BOOK_START,
+    payload: {
+      messages
+    }
+  }
+}
 //async actions leveraging thunk lib
 export const initBooks = () => {
   return dispatch => {
@@ -74,6 +95,21 @@ export const deleteBook = (isbn, token) => {
     .catch((err) => {
       console.log(err);
       dispatch(deleteBookFailed(err)); //generally would fail if unauthenticated
+    });
+  }
+}
+
+export const addBook = (book, token) => {
+  return dispatch => {
+    dispatch(addBookStart());
+    axiosBooks.post('/', {book}, {
+      headers: {'AUTHORIZATION': token}
+    })
+    .then(response => {
+      dispatch(addBookSuccess());
+    })
+    .catch(err => {
+      dispatch(addBookFailed(err.response.data.message));
     });
   }
 }

@@ -8,6 +8,9 @@ export const UPDATE_BOOK = 'UPDATE_BOOK';
 export const FETCH_BOOKS_START = 'FETCH_BOOKS_START';
 export const FETCH_BOOKS_FAILED = 'FETCH_BOOKS_FAILED';
 export const FETCH_BOOKS_SUCCESS = 'FETCH_BOOKS_SUCCESS';
+export const ADD_BOOK_START = 'ADD_BOOK_START';
+export const ADD_BOOK_FAILED = 'ADD_BOOK_FAILED';
+export const ADD_BOOK_SUCCESS = 'ADD_BOOK_SUCCESS';
 // auth action types
 export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
