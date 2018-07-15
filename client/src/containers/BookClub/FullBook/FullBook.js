@@ -7,10 +7,12 @@ import * as actionCreators from '../../../store/actions/index';
 import BookSummary from '../../../components/BookSummary/BookSummary';
 import Modal from '../../../components/UI/Modal/Modal';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+import Button from '../../../components/UI/Button/Button';
 class FullBook extends Component {
   static displayName = "[Component FullBook]";
   state = {
-    editMode: true
+    editMode: true,
+    deleting: false
   }
 
   componentDidMount() {
@@ -27,6 +29,10 @@ class FullBook extends Component {
     this.props.history.replace('/');
   }
 
+  onDeleteHandler = () => {
+    this.setState({deleting: true});
+  }
+
   render() {
     let book = <h2>No Book Found {":("}</h2>;
     if(this.props.activeBook) {
@@ -39,11 +45,13 @@ class FullBook extends Component {
               genre={this.props.activeBook.genre}
               cost={this.props.activeBook.price}
               stock={this.props.activeBook.stock}
-              editing={this.state.editMode}/>
+              editing={this.state.editMode}
+              deleteClicked={this.onDeleteHandler}/>
     }
     return (
         <Modal show modalClosed={this.closeView}>
             {book}
+            <Button buttonType='Neutral' clicked={this.closeView}>Close</Button>
         </Modal>
     )
   }

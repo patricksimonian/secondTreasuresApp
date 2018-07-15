@@ -4,7 +4,8 @@ import Button from '../../UI/Button/Button';
 
 const BookControls = (props) => (
   <div>
-    <Button buttonType="Danger">Delete</Button>
+    <Button buttonType="Danger" clicked={props.onDelete}>Delete</Button>
+    <Button buttonType="Neutral">Edit</Button>
   </div>
 );
 
