@@ -1,26 +1,17 @@
 import React, { Component } from 'react';
 import {Route} from 'react-router-dom';
+import {connect} from 'react-redux';
 import axiosBooks from '../../axios-books';
-
-import PropTypes from 'prop-types';
-import dummyBooks from '../dummy.json';
+import * as actionCreators from '../../store/actions/index';
 //components
 import Books from '../../components/Books/Books';
 import FullBook from './FullBook/FullBook';
 import Spinner from '../../components/UI/Spinner/Spinner';
 class BookClub extends Component {
-  static displayName = "";
-  state = {
-    books: [],
-    loadingBooks: true
-  }
+  static displayName = "[Component: BookClub]";
 
   componentDidMount() {
-    axiosBooks.get('/')
-    .then(response => {
-      //books from data
-      this.setState({books: response.data.data, loadingBooks: false});
-    });
+    this.props.onInitBooks();
   }
   //book is clicked to view more details
   bookClickedHandler = (isbn) => {
@@ -30,10 +21,10 @@ class BookClub extends Component {
 
   render() {
     let books = null;
-    if(this.state.loadingBooks) {
+    if(!this.props.books) {
       books = <Spinner>Loading</Spinner>;
     } else {
-      books = <Books books={this.state.books} viewBook={this.bookClickedHandler}/>;
+      books = <Books books={this.props.books} viewBook={this.bookClickedHandler}/>;
     }
     return (
       <div>
@@ -44,6 +35,16 @@ class BookClub extends Component {
   }
 }
 
-BookClub.propTypes = {};
+const mapStateToProps = state => {
+  return {
+    books: state.bc.books,
+    error: state.bc.error
+  }
+}
 
-export default BookClub;
+const mapDispatchToProps = dispatch => {
+  return {
+    onInitBooks: () => dispatch(actionCreators.initBooks())
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(BookClub);
