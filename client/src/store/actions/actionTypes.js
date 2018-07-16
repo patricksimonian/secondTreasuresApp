@@ -11,6 +11,8 @@ export const FETCH_BOOKS_SUCCESS = 'FETCH_BOOKS_SUCCESS';
 export const ADD_BOOK_START = 'ADD_BOOK_START';
 export const ADD_BOOK_FAILED = 'ADD_BOOK_FAILED';
 export const ADD_BOOK_SUCCESS = 'ADD_BOOK_SUCCESS';
+export const FILTER_BOOKS = 'FILTER_BOOKS';
+export const FILTER_BOOKS_RESET = 'FILTER_BOOKS_RESET';
 // auth action types
 export const LOGIN_START = 'LOGIN_START';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';

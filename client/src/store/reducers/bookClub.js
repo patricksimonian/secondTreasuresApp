@@ -3,6 +3,7 @@ import {updateObject} from '../utility';
 
 const intialState = {
   books: null,
+  filteredBooks: null, //the filtered list of books via the genre dropdown and searchbar
   error: false,
   activeBook: null,
   loading: false,
@@ -13,7 +14,7 @@ const intialState = {
 const setLoading = state => updateObject(state, {loading: true});
 //set books and reset error state to false
 const setBooks = (state, books) => {
-  return updateObject(state,  {books, error: false, loading: false, booksNeedUpdating: false, bookAdded: false});
+  return updateObject(state,  {books, filteredBooks: books, error: false, loading: false, booksNeedUpdating: false, bookAdded: false});
 }
 
 const setActiveBook = (state, isbn) => {
@@ -38,6 +39,27 @@ const setBookDeleted = (state, isbn) => {
 }
 
 const setBookAdded = state => ({...state, bookAdded: true})
+
+const filterBooks = (state, keywords, genre) => {
+  //clone books
+  let copiedBooks = {...state.books};
+  copiedBooks = filterBooks.map(b => ({...b}));
+  let keywordRe = new RegExp(keywords, 'i'); //create a regex object on keywords
+  const filteredBooks = copiedBooks.filter(b => {
+    if(genre === 'any') {
+      return b.title.search(keywordRe) > -1;
+    } else {
+      return b.genre.toLowerCase() === genre && b.title.search(keywordRe) > -1;
+    }
+  });
+  return updateObject(state, {filteredBooks});
+}
+
+const resetFilteredBooks = state => {
+  let copiedBooks = {...state.books};
+  copiedBooks = filterBooks.map(b => ({...b}));
+  return updateObject(state, {filteredBooks: copiedBooks});
+}
 
 const reducer = (state = intialState, action) => {
   switch(action.type) {
