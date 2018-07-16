@@ -23,9 +23,7 @@ class BookClub extends Component {
     //this could be intentional but also it could be by mistake that the database
     //returned 0 rows.
     //dispatch a call to server to notify admin (by email*** one day) that this has occured!
-    if(this.props.booksNeedUpdating) {
-      this.props.onInitBooks();
-    } else if (this.props.books !== null && this.props.books.length === 0) {
+    if (this.props.books !== null && this.props.books.length === 0) {
       //dispatch axios call to to notify admin
     }
   }

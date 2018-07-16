@@ -10,7 +10,7 @@ module.exports = (db, cloudinary) => {
       let page = req.query.page / 1
       const NUMROWS = 25;
       page = isNaN(page) || page < 1 ? 1 : Math.floor(page); //is page param passed in as a valid int ?
-      const startRow = page === 1 ? 1 : page * NUMROWS;
+      const startRow = page === 1 ? 0 : page * NUMROWS;
       const endRow = startRow + NUMROWS;
       // using raw query for now as demonstration of sql
       // please note that although RAW values are being tossesd into the LIMIT
@@ -19,7 +19,7 @@ module.exports = (db, cloudinary) => {
         SELECT b.isbn, b.title, b.genre, cast((b.price / 100) as decimal(11, 2)) AS price, b.price as price_cents,
         b.stock, b.img_url, a.name AS author_name, a.id AS author_id
         FROM Books b
-        LEFT JOIN book_authors ba
+        INNER JOIN book_authors ba
         ON b.isbn = ba.book_isbn
         LEFT JOIN Authors a
         ON ba.author_id = a.id
@@ -28,6 +28,7 @@ module.exports = (db, cloudinary) => {
 
       db.sequelize.query(query, {bind: [startRow, endRow], type: db.sequelize.QueryTypes.SELECT})
        .then(books => {
+         console.log(books);
          //format book data in a more predicatble manner, storing authors under
          //books
          const booksJSON = books.map(book => {

@@ -17,11 +17,22 @@ const rootReducer = combineReducers({
   bc: bookClubReducer,
   auth: authReducer
 });
+//redux middleware
+const logger = store => {
+  return next => {
+    return action => {
+      console.log('MiddleWare: Dispatching', action);
+      const result = next(action);
+      console.log('MiddleWare: next state', store.getState());
+      return result;
+    }
+  }
+}
 //redux debugging
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 //creates store with combined reducer and applys redux debugger helper
 //and thunk async action creator middleware
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(logger, thunk)));
 store.dispatch(actionCreators.loginInit());//check of jwt in local storage
 const root = (
   <Provider store={store}>
