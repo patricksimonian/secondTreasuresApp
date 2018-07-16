@@ -62,7 +62,7 @@ export const addBookSuccess = () => {
 
 export const addBookFailed = (messages) => {
   return {
-    type: actionTypes.ADD_BOOK_START,
+    type: actionTypes.ADD_BOOK_FAILED,
     payload: {
       messages
     }
@@ -106,9 +106,12 @@ export const addBook = (book, token) => {
       headers: {'AUTHORIZATION': token}
     })
     .then(response => {
+      //for some reason axios now throwing 400 type errors
+      if(response instanceof Error) throw response;
       dispatch(addBookSuccess());
     })
     .catch(err => {
+      console.log("FAILED!", err);
       dispatch(addBookFailed(err.response.data.message));
     });
   }

@@ -13,7 +13,7 @@ const intialState = {
 const setLoading = state => updateObject(state, {loading: true});
 //set books and reset error state to false
 const setBooks = (state, books) => {
-  return updateObject(state,  {books, error: false, loading: false, booksNeedUpdating: false});
+  return updateObject(state,  {books, error: false, loading: false, booksNeedUpdating: false, bookAdded: false});
 }
 
 const setActiveBook = (state, isbn) => {

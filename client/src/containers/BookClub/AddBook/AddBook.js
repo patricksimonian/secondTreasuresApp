@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import validator from 'validator';
+import axiosBooks from '../../../axios-books';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../store/actions/index';
 import classes from './AddBook.css';
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
 import {Redirect} from 'react-router-dom';
-
+//hocs
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 class AddBook extends Component {
   static displayName = "[Component AddBook]";
   //form config for easy form generation
@@ -213,7 +215,8 @@ class AddBook extends Component {
   render() {
     let successIndicator = null;
     //redirect user if unauthenticated or if a book as been added
-    let redirect = (this.props.isAuthorized || !this.props.bookAdded) ? null : <Redirect to="/" />;
+    let redirect = (this.props.isAuthorized) ? null : <Redirect to="/" />;
+    let redirectBookAdded = (this.props.bookAdded) ? <Redirect to="/" /> : null;
     const formElementsArray = []; //map form elements from state config
     for (let key in this.state.bookData) {
       formElementsArray.push({
@@ -224,6 +227,7 @@ class AddBook extends Component {
     return (
       <div className={classes.AddBook}>
         {redirect}
+        {redirectBookAdded}
         {successIndicator}
         <h1>Add a Book</h1>
         <div className={classes.Form}>
@@ -268,4 +272,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddBook);
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(AddBook, axiosBooks));
