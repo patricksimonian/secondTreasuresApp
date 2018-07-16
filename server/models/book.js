@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: false,
       unique: {
-        msg: 'Book has already been entered',
+        msg: 'The ISBN entered is already in use!',
         fields: ['isbn']
       },
       hooks: {
@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
         isUnique: (isbn, next) => {
           Book.findOne({where: {isbn}})
           .then(foundBook => {
-            if(foundBook) throw new Error('Book has already been entered!');
+            if(foundBook) throw new Error('The ISBN is already in use!');
             return next();
           })
           .catch(err => next(err));
