@@ -14,7 +14,10 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 //main container
 class BookClub extends Component {
   static displayName = "[Component BookClub]";
-
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log(nextProps, "in component should update", this.props);
+    return (nextProps.books !== this.props.books) || (nextProps.filteredBooks !== this.props.filterBooks);
+  }
   componentDidMount() {
     this.props.onInitBooks(); //load books initially
   }
