@@ -1,0 +1,33 @@
+.AddBook {
+  text-align: center;
+}
+.AddBook .Form {
+  display: flex;
+  flex-flow: row-reverse wrap;
+  align-items: flex-start;
+  justify-content: center;
+}
+.AddBook .Preview {
+  width: 250px;
+  height: 200px;
+  border: 2px dashed #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  position: relative;
+  margin: 25px;
+}
+
+.AddBook .Preview::before {
+  content: 'preview';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.Preview img {
+  height: 100%;
+  background-position: 50% 50%;
+  background-repeat:   no-repeat;
+  background-size:     cover;
+}

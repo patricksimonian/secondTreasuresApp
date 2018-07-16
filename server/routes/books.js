@@ -13,7 +13,7 @@ module.exports = (db, cloudinary, jwtSecret) => {
     //do we have the auth header?
     const token = req.get('AUTHORIZATION');
     if(!token) {
-      res.status(401).json({success: false, message: ['AUTHORIZATION header not included']});
+      res.status(401).json({success: false, message: ['Not able to perform this action']});
     } else {
       //check if token is valid
       jwt.verify(token)

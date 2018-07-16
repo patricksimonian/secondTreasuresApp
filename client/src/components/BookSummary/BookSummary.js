@@ -18,7 +18,7 @@ const BookSummary = (props) => {
           genre={props.genre}
           cost={props.cost}
           stock={props.stock} />
-        {props.editing ? <BookControls onDelete={props.deleteClicked}/> : null}
+        {props.isAuthorized ? <BookControls onDelete={props.deleteClicked}/> : null}
       </div>
     </div>
   )

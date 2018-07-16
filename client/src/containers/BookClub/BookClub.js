@@ -14,7 +14,7 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 class BookClub extends Component {
   static displayName = "[Component BookClub]";
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.onInitBooks();
   }
 
@@ -23,7 +23,9 @@ class BookClub extends Component {
     //this could be intentional but also it could be by mistake that the database
     //returned 0 rows.
     //dispatch a call to server to notify admin (by email*** one day) that this has occured!
-    if(this.props.books !== null && this.props.books.length === 0) {
+    if(this.props.booksNeedUpdating) {
+      this.props.onInitBooks();
+    } else if (this.props.books !== null && this.props.books.length === 0) {
       //dispatch axios call to to notify admin
     }
   }
@@ -35,7 +37,7 @@ class BookClub extends Component {
 
   render() {
     let books = null;
-    if(this.props.books === null) {
+    if(this.props.books === null || this.props.loading) {
       books = (
         <div style={{overflow: 'hidden'}}>
           <Spinner>Loading</Spinner>
@@ -49,7 +51,7 @@ class BookClub extends Component {
       <div>
         <MainHeader />
         {books}
-        {this.props.books !== null ? <Route path='/books/:isbn' component={FullBook} />: null}
+        {this.props.books !== null ? <Route path="/books/:isbn" component={FullBook} />: null}
       </div>
     )
   }
@@ -59,7 +61,9 @@ const mapStateToProps = state => {
   return {
     books: state.bc.books,
     error: state.bc.error,
-    activeBook: state.bc.activeBook
+    loading: state.bc.loading,
+    activeBook: state.bc.activeBook,
+    booksNeedUpdating: state.bc.booksNeedUpdating
   }
 }
 

@@ -8,7 +8,7 @@ const toolbar = (props) => (
   <header className={classes.Toolbar}>
     <MenuToggler open={props.sideDrawerOpen} />
     <Logo />
-    <nav className={classes.DesktopOnly}><NavigationItems /></nav>
+    <nav className={classes.DesktopOnly}><NavigationItems isAuthorized={props.isAuthorized}/></nav>
   </header>
 );
 
