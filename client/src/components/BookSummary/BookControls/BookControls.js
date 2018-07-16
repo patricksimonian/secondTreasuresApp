@@ -5,7 +5,7 @@ import Button from '../../UI/Button/Button';
 const BookControls = (props) => (
   <div className={classes.BookControls}>
     <Button buttonType="Danger" clicked={props.onDelete}>Delete</Button>
-    <Button buttonType="Neutral">Edit</Button>
+    {/*<Button buttonType="Neutral">Edit</Button> Not implementing yet*/}
   </div>
 );
 
