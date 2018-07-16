@@ -36,7 +36,8 @@ const setError = state => updateObject(state, {error: true, loading: false});
 const setBookDeleted = (state, isbn) => {
   //remove book from books array by isbn
   let books = state.books.filter(b => b.isbn !== isbn);
-  return updateObject(state, {books, activeBook: null, bookDeleted: true, loading: false});
+  let filteredBooks = state.filteredBooks.filter(b => b.isbn !== isbn);
+  return updateObject(state, {books, filteredBooks, activeBook: null, bookDeleted: true, loading: false});
 }
 
 const setBookAdded = state => ({...state, bookAdded: true})
