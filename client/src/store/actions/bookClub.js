@@ -93,7 +93,6 @@ export const deleteBook = (isbn, token) => {
       dispatch(deleteBookSuccess(response.data.isbn));
     })
     .catch((err) => {
-      console.log(err);
       dispatch(deleteBookFailed(err)); //generally would fail if unauthenticated
     });
   }
@@ -111,7 +110,6 @@ export const addBook = (book, token) => {
       dispatch(addBookSuccess());
     })
     .catch(err => {
-      console.log("FAILED!", err);
       dispatch(addBookFailed(err.response.data.message));
     });
   }

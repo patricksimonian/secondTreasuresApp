@@ -191,13 +191,6 @@ class AddBook extends Component {
     this.setState({bookData: updatedBookData, formIsValid: formIsValid});
   }
 
-  componentDidUpdate() {
-    if(this.props.bookAdded) {
-      //fetch updated books via dispatch
-      this.props.initBooks();
-    }
-  }
-
   mapInputsToObject = () => {
     const bookData = {};
     for(let key in this.state.bookData) {
