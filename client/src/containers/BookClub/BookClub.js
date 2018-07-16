@@ -8,12 +8,16 @@ import MainHeader from '../../components/MainHeader/MainHeader';
 import Books from '../../components/Books/Books';
 import FullBook from './FullBook/FullBook';
 import Spinner from '../../components/UI/Spinner/Spinner';
+import BookSearch from '../../components/BookSearch/BookSearch';
 //hocs
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 //main container
 class BookClub extends Component {
   static displayName = "[Component BookClub]";
-
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log(nextProps, "in component should update", this.props);
+    return (nextProps.books !== this.props.books) || (nextProps.filteredBooks !== this.props.filterBooks);
+  }
   componentDidMount() {
     this.props.onInitBooks(); //load books initially
   }
@@ -45,12 +49,15 @@ class BookClub extends Component {
     } else if(this.props.books.length === 0) {
       //take note of componentDidUpdate on how we should potentially handle this
       books = <h2>No Books Available Right now..we are working on it!</h2>
+    } else if(this.props.filteredBooks.length === 0) {
+      books = <h2>No Books found!</h2>
     } else {
-      books = <Books books={this.props.books} viewBook={this.bookClickedHandler}/>;
+      books = <Books books={this.props.filteredBooks} viewBook={this.bookClickedHandler}/>;
     }
     return (
       <div>
         <MainHeader />
+        <BookSearch onFilter={this.props.onFilterBooks}/>
         {books}
         {this.props.books !== null ? <Route path="/books/:isbn" component={FullBook} />: null}
       </div>
@@ -61,6 +68,7 @@ class BookClub extends Component {
 const mapStateToProps = state => {
   return {
     books: state.bc.books,
+    filteredBooks: state.bc.filteredBooks,
     error: state.bc.error,
     loading: state.bc.loading,
     activeBook: state.bc.activeBook,
@@ -70,7 +78,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onInitBooks: () => dispatch(actionCreators.initBooks())
+    onInitBooks: () => dispatch(actionCreators.initBooks()),
+    onFilterBooks: (keywords, genre) => dispatch(actionCreators.filterBooks(keywords, genre)),
+    onReset: () => dispatch(actionCreators.filterBooksReset())
   }
 }
 

@@ -23,7 +23,7 @@ const logger = store => {
     return action => {
       console.log('MiddleWare: Dispatching', action);
       const result = next(action);
-      console.log('MiddleWare: next state', store.getState());
+      // console.log('MiddleWare: next state', store.getState());
       return result;
     }
   }

@@ -68,6 +68,22 @@ export const addBookFailed = (messages) => {
     }
   }
 }
+
+export const filterBooks = (keywords, genre) => {
+  return {
+    type: actionTypes.FILTER_BOOKS,
+    payload: {
+      keywords,
+      genre
+    }
+  }
+}
+
+export const filterBooksReset = () => {
+  return {
+    type: actionTypes.FILTER_BOOKS_RESET
+  }
+}
 //async actions leveraging thunk lib
 export const initBooks = () => {
   return dispatch => {
