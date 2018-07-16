@@ -1,16 +1,24 @@
 Promise =  require('bluebird');
 const beautifyIsbn = require('beautify-isbn');
-
+//special note:
+//on error the standardized obj to respond with is json with this shape:
+/*
+  {
+    success: false,
+    message: ['yours messages here']
+  }
+*/
 module.exports = (db, cloudinary) => {
   const Book = db.books;
   const Author = db.authors;
   return  {
     allBook: (req, res) => {
       //pagnation query params if passed in
-      let page = req.query.page / 1
+      let page = req.query.page / 1; //get page number
       const NUMROWS = 25;
-      page = isNaN(page) || page < 1 ? 1 : Math.floor(page); //is page param passed in as a valid int ?
-      const startRow = page === 1 ? 0 : page * NUMROWS;
+      //is page param passed in as a valid int ?
+      page = isNaN(page) || page < 1 ? 1 : Math.floor(page); //flooring incase validation passes with a float
+      const startRow = page === 1 ? 0 : page * NUMROWS; //mysql row nums start at 0
       const endRow = startRow + NUMROWS;
       // using raw query for now as demonstration of sql
       // please note that although RAW values are being tossesd into the LIMIT
@@ -24,11 +32,10 @@ module.exports = (db, cloudinary) => {
         LEFT JOIN Authors a
         ON ba.author_id = a.id
         ORDER BY b.created_at DESC
-        LIMIT ${startRow}, ${endRow};`
+        LIMIT ${startRow}, ${endRow};`;
 
       db.sequelize.query(query, {bind: [startRow, endRow], type: db.sequelize.QueryTypes.SELECT})
        .then(books => {
-         console.log(books);
          //format book data in a more predicatble manner, storing authors under
          //books
          const booksJSON = books.map(book => {
@@ -89,7 +96,6 @@ module.exports = (db, cloudinary) => {
       })
       .catch((err) => {
         //book couldn't be destroyed but this is okay
-        console.error(err);
         res.status(400).json({
           success: 'false',
           message: ['Could not delete Book, Book may not exist']

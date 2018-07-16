@@ -1,7 +1,15 @@
-
 const moment = require('moment');
+//special note:
+//on error the standardized obj to respond with is json with this shape:
+/*
+  {
+    success: false,
+    message: ['yours messages here']
+  }
+*/
 module.exports = (db, jwtSecret) => {
-  const jwt = require('../helpers/jwt.js')(jwtSecret); //personal promisfy wrapper on jwt sign and verify methods
+  //personal promisfy wrapper on jwt sign and verify methods
+  const jwt = require('../helpers/jwt.js')(jwtSecret);
   const User = db.users;
   const Employee = db.employees;
   return  {
@@ -16,12 +24,14 @@ module.exports = (db, jwtSecret) => {
         if(userFound && userFound.validatePassword(password)) {//will hash later!
           //get date 1 day from now in seconds from epoch
           const expdate = moment().add(1, 'days').unix();
-          //create JWT and send back
+          //create JWT and send back..
+          //payload creation
           const payload = {
             id: userFound.id,
             employee: userFound.employee instanceof Employee,
             authenticated_when: Date.now()
           };
+          //sign token and send
           jwt.sign(payload, expdate)
           .then(token => {
             res.json({

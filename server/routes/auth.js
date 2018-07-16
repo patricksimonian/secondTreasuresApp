@@ -5,7 +5,7 @@ const authenticationHandlers = require('../routeHandlers/authenticationHandlers.
 
 module.exports = (db, jwtSecret) => {
   const handlers = authenticationHandlers(db, jwtSecret);
-
+  //login
   router.post('/login', handlers.login);
 
   return router;
