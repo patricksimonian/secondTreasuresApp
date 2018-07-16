@@ -4,6 +4,7 @@ import {Redirect} from 'react-router-dom';
 import * as actionCreators from '../../store/actions/index';
 import Login from '../../components/Auth/Login/Login';
 import Aux from '../../hoc/auxillary/auxillary';
+
 class Auth extends Component {
   static displayName = "[Component Auth]";
 
@@ -40,6 +41,7 @@ class Auth extends Component {
     },
     formIsValid: false,
   }
+
   checkValidity(value, rules) {
     let isValid = true;
     if (!rules) {
@@ -51,26 +53,28 @@ class Auth extends Component {
     }
     return isValid;
   }
-  inputChangedHandler = (event, inputIdentifier) => {
-    console.log("input changed");
-        const updatedLoginForm = {
-            ...this.state.loginForm
-        };
-        const updatedFormElement = {
-            ...updatedLoginForm[inputIdentifier]
-        };
-        updatedFormElement.value = event.target.value;
-        updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-        updatedFormElement.touched = true;
-        updatedLoginForm[inputIdentifier] = updatedFormElement;
 
-        let formIsValid = true;
-        for (let inputIdentifier in updatedLoginForm) {
-            formIsValid = updatedLoginForm[inputIdentifier].valid && formIsValid;
-        }
-        this.setState({loginForm: updatedLoginForm, formIsValid: formIsValid});
+  inputChangedHandler = (event, inputIdentifier) => {
+    const updatedLoginForm = {
+      ...this.state.loginForm
+    };
+    const updatedFormElement = {
+      ...updatedLoginForm[inputIdentifier]
+    };
+
+    updatedFormElement.value = event.target.value;
+    updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+    updatedFormElement.touched = true;
+    updatedLoginForm[inputIdentifier] = updatedFormElement;
+
+    let formIsValid = true;
+    for (let inputIdentifier in updatedLoginForm) {
+      formIsValid = updatedLoginForm[inputIdentifier].valid && formIsValid;
     }
 
+    this.setState({loginForm: updatedLoginForm, formIsValid: formIsValid});
+  }
+  //dispatch username and password to login
   loginHandler = (event) => {
     event.preventDefault();
     this.props.login(this.state.loginForm.username.value, this.state.loginForm.password.value);
@@ -117,6 +121,5 @@ const mapDispatchToProps = (dispatch) => {
     login: (username, password) => dispatch(actionCreators.login(username, password))
   };
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);

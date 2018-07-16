@@ -6,6 +6,7 @@ import classes from './AddBook.css';
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
 import {Redirect} from 'react-router-dom';
+
 class AddBook extends Component {
   static displayName = "[Component AddBook]";
   //form config for easy form generation
@@ -164,26 +165,33 @@ class AddBook extends Component {
   }
   //global input change handler
   inputChangedHandler = (event, inputIdentifier) => {
-      const updatedBookData = {
-          ...this.state.bookData
-      };
-      const updatedFormElement = {
-          ...updatedBookData[inputIdentifier]
-      };
-      updatedFormElement.value = event.target.value;
-      updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
-      updatedFormElement.touched = true;
-      updatedBookData[inputIdentifier] = updatedFormElement;
-
-      let formIsValid = true;
-      for (let inputIdentifier in updatedBookData) {
-          formIsValid = updatedBookData[inputIdentifier].valid && formIsValid;
-      }
-      this.setState({bookData: updatedBookData, formIsValid: formIsValid});
+    //clone book data
+    const updatedBookData = {
+        ...this.state.bookData
+    };
+    //clone target input element by its identifier
+    const updatedFormElement = {
+        ...updatedBookData[inputIdentifier]
+    };
+    //update target input elements value
+    updatedFormElement.value = event.target.value;
+    //check if input should be declared valid
+    updatedFormElement.valid = this.checkValidity(updatedFormElement.value, updatedFormElement.validation);
+    //calling this function means user interacted with input so touched = true
+    updatedFormElement.touched = true;
+    //pass updated input to updated form data
+    updatedBookData[inputIdentifier] = updatedFormElement;
+    let formIsValid = true;
+    //check if all inputs are valid
+    for (let inputIdentifier in updatedBookData) {
+      formIsValid = updatedBookData[inputIdentifier].valid && formIsValid;
+    }
+    this.setState({bookData: updatedBookData, formIsValid: formIsValid});
   }
+
   componentDidUpdate() {
     if(this.props.bookAdded) {
-      //simulate delay to fetch more books
+      //fetch updated books via dispatch
       this.props.initBooks();
     }
   }
@@ -208,10 +216,10 @@ class AddBook extends Component {
     let redirect = (this.props.isAuthorized || !this.props.bookAdded) ? null : <Redirect to="/" />;
     const formElementsArray = []; //map form elements from state config
     for (let key in this.state.bookData) {
-        formElementsArray.push({
-            id: key,
-            config: this.state.bookData[key]
-        });
+      formElementsArray.push({
+          id: key,
+          config: this.state.bookData[key]
+      });
     }
     return (
       <div className={classes.AddBook}>
@@ -252,10 +260,12 @@ const mapStateToProps = state => {
     isAuthorized: state.auth.isAuthorized
   }
 }
+
 const mapDispatchToProps = dispatch => {
   return {
     addBook: (book, token) => {dispatch(actionCreators.addBook(book, token))},
     initBooks: () => {dispatch(actionCreators.initBooks())}
   }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(AddBook);

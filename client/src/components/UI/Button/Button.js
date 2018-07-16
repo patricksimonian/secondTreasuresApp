@@ -1,7 +1,6 @@
 import React from 'react';
-
 import classes from './Button.css';
-import PropTypes from 'prop-types'
+
 const button = (props) => (
   <button
     disabled={!props.enabled}
@@ -10,7 +9,7 @@ const button = (props) => (
 );
 
 button.displayName = '[Component Button]';
-button.propTypes = {}
+
 button.defaultProps = {
   enabled: true
 }

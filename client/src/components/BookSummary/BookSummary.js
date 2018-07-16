@@ -1,8 +1,7 @@
 import React from 'react';
 import classes from './BookSummary.css';
-import Aux from '../../hoc/auxillary/auxillary';
 import Book from '../Books/Book/Book';
-import BookData from './BookData/BookData';
+// import BookData from './BookData/BookData';
 import BookControls from './BookControls/BookControls';
 import FullDescription from './FullDescription/FullDescription';
 

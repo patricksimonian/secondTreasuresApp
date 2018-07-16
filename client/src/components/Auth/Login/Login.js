@@ -1,5 +1,6 @@
 import React from 'react';
 import classes from './Login.css';
+//components
 import Input from '../../UI/Input/Input';
 import Button from '../../UI/Button/Button';
 import MessageList from '../../UI/MessageList/MessageList';
@@ -25,5 +26,5 @@ const Login = (props) => (
     </form>
   </div>
 );
-
+Login.displayName = '[Component Login Form]';
 export default Login;
