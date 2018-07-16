@@ -6,7 +6,8 @@
 - Server
 
 ## Tech Used
-The backend of this application is a **Node Express** application using **Sequelize** as a database ORM with **MySQL** as the database. The server side captures the MVC pattern with the exception of controllers imparting changes on views (which is taken care of by the React client)
+The backend of this application is a **Node Express** application using **Sequelize** as a database ORM with **MySQL** as the database.
+Image storing is done via **Cloudinary** Image hosting service. All remote img URLS are stored by this service to avoid issues where remote URL break. The server side captures the MVC pattern with the exception of controllers imparting changes on views (which is taken care of by the React client)
 
  ## ERD
 Based on the given requirements provided by the sprint planning and story:
