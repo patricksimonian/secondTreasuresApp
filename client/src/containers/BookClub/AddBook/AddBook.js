@@ -3,6 +3,7 @@ import validator from 'validator';
 import axiosBooks from '../../../axios-books';
 import {connect} from 'react-redux';
 import * as actionCreators from '../../../store/actions/index';
+import genres from '../../../assets/genres.json'; //used for select list generation
 import classes from './AddBook.css';
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
@@ -69,14 +70,7 @@ class AddBook extends Component {
       genre: {
         elementType: 'select',
         elementConfig: {
-          options: [ //could be loaded via state later on..
-              {value: 'Fantasy', displayValue: 'Fantasy'},
-              {value: 'Drama', displayValue: 'Drama'},
-              {value: 'Travel', displayValue: 'Travel'},
-              {value: 'Suspense', displayValue: 'Suspense'},
-              {value: 'Adventure', displayValue: 'Adventure'},
-              {value: 'Non-fiction', displayValue: 'Non-fiction'}
-          ]
+          options: genres
         },
         label: 'Genre',
         value: 'Non-fiction',

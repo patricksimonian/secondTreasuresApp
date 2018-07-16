@@ -3,7 +3,9 @@ export {
   fetchBooksFailed,
   setActiveBook,
   deleteBook,
-  addBook
+  addBook,
+  filterBooks,
+  filterBooksReset
 } from './bookClub';
 export {
   login,

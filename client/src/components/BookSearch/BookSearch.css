@@ -1,0 +1,19 @@
+.Search {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    justify-content: space-between;
+    align-items: center;
+    margin: 2px auto;
+}
+
+.Search button {
+  align-self: flex-end;
+}
+
+@media (min-width: 450px) {
+  .Search {
+    width: 50%;
+    max-width: 350px;
+  }
+}

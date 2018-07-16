@@ -14,7 +14,8 @@ const intialState = {
 const setLoading = state => updateObject(state, {loading: true});
 //set books and reset error state to false
 const setBooks = (state, books) => {
-  return updateObject(state,  {books, filteredBooks: books, error: false, loading: false, booksNeedUpdating: false, bookAdded: false});
+  const filteredBooks = [...books];
+  return updateObject(state,  {books, filteredBooks, error: false, loading: false, booksNeedUpdating: false, bookAdded: false});
 }
 
 const setActiveBook = (state, isbn) => {
@@ -42,22 +43,23 @@ const setBookAdded = state => ({...state, bookAdded: true})
 
 const filterBooks = (state, keywords, genre) => {
   //clone books
-  let copiedBooks = {...state.books};
-  copiedBooks = filterBooks.map(b => ({...b}));
+  let copiedState = {...state};
+  let copiedBooks = copiedState.books.map(b => ({...b}));
   let keywordRe = new RegExp(keywords, 'i'); //create a regex object on keywords
   const filteredBooks = copiedBooks.filter(b => {
     if(genre === 'any') {
-      return b.title.search(keywordRe) > -1;
+      //if any only search author name and book title
+      return b.title.search(keywordRe) > -1 || b.author_name.search(keywordRe) > -1;
     } else {
-      return b.genre.toLowerCase() === genre && b.title.search(keywordRe) > -1;
+      return b.genre === genre && (b.title.search(keywordRe) > -1 || b.author_name.search(keywordRe) > -1);
     }
   });
   return updateObject(state, {filteredBooks});
 }
 
 const resetFilteredBooks = state => {
-  let copiedBooks = {...state.books};
-  copiedBooks = filterBooks.map(b => ({...b}));
+  let copiedState = {...state};
+  let copiedBooks = copiedState.books.map(b => ({...b}));
   return updateObject(state, {filteredBooks: copiedBooks});
 }
 
@@ -73,6 +75,7 @@ const reducer = (state = intialState, action) => {
     case actionTypes.ADD_BOOK_START: return setLoading(state);
     case actionTypes.ADD_BOOK_SUCCESS: return setBookAdded(state);
     case actionTypes.ADD_BOOK_FAILED: return setError(state);
+    case actionTypes.FILTER_BOOKS: return filterBooks(state, action.payload.keywords, action.payload.genre);
   }
   return state;
 }
