@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './BookData.css';
+// import classes from './BookData.css';
 import Button from '../../UI/Button/Button';
 
 const BookData = (props) => (

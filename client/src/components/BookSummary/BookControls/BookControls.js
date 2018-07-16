@@ -3,7 +3,7 @@ import classes from './BookControls.css';
 import Button from '../../UI/Button/Button';
 
 const BookControls = (props) => (
-  <div>
+  <div className={classes.BookControls}>
     <Button buttonType="Danger" clicked={props.onDelete}>Delete</Button>
     <Button buttonType="Neutral">Edit</Button>
   </div>

@@ -10,12 +10,12 @@ import FullBook from './FullBook/FullBook';
 import Spinner from '../../components/UI/Spinner/Spinner';
 //hocs
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
-
+//main container
 class BookClub extends Component {
   static displayName = "[Component BookClub]";
 
   componentDidMount() {
-    this.props.onInitBooks();
+    this.props.onInitBooks(); //load books initially
   }
 
   componentDidUpdate() {
@@ -38,11 +38,14 @@ class BookClub extends Component {
   render() {
     let books = null;
     if(this.props.books === null || this.props.loading) {
+      //set books to be a spinner
       books = (
         <div style={{overflow: 'hidden'}}>
           <Spinner>Loading</Spinner>
-        </div>);
+        </div>
+      );
     } else if(this.props.books.length === 0) {
+      //take note of componentDidUpdate on how we should potentially handle this
       books = <h2>No Books Available Right now..we are working on it!</h2>
     } else {
       books = <Books books={this.props.books} viewBook={this.bookClickedHandler}/>;
@@ -72,4 +75,5 @@ const mapDispatchToProps = dispatch => {
     onInitBooks: () => dispatch(actionCreators.initBooks())
   }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(BookClub, axiosBooks));

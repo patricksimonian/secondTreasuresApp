@@ -7,5 +7,5 @@ const Book = (props) => (
     {props.children}
   </div>
 );
-
+Book.displayName = '[Component Book]'
 export default Book;
