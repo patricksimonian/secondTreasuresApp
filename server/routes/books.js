@@ -7,8 +7,11 @@ module.exports = (db, cloudinary, jwtSecret) => {
   const handlers = bookHandlers(db, cloudinary);
   //get all books
   router.get('/', handlers.allBook);
+  //find one book
   router.get('/:isbn', handlers.findBook);
-  //authenticated actions
+  //authenticated actions below...
+
+  //this middleware will filter out any requests with an invalid jwt
   router.use((req, res, next) => {
     //do we have the auth header?
     const token = req.get('AUTHORIZATION');
