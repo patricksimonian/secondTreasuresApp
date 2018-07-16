@@ -6,6 +6,7 @@ import * as actionCreators from '../../../store/actions/index';
 import classes from './AddBook.css';
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
+import Spinner from '../../../components/UI/Spinner/Spinner';
 import {Redirect} from 'react-router-dom';
 //hocs
 import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
@@ -217,6 +218,15 @@ class AddBook extends Component {
           config: this.state.bookData[key]
       });
     }
+    let formBtn = null;
+    //is loading we replace add button with loading indicator
+    if(this.props.loading) {
+      formBtn = (
+        <Spinner>Loading...</Spinner>
+      );
+    } else {
+      formBtn = <Button buttonType="Success" enabled={this.state.formIsValid}>Add Book!</Button>
+    }
     return (
       <div className={classes.AddBook}>
         {redirect}
@@ -242,7 +252,7 @@ class AddBook extends Component {
                 touched={formElement.config.touched}
                 changed={(event) => this.inputChangedHandler(event, formElement.id)} />
             ))}
-            <Button buttonType="Success" enabled={this.state.formIsValid}>Add Book!</Button>
+            {formBtn}
           </form>
         </div>
       </div>
@@ -254,7 +264,8 @@ const mapStateToProps = state => {
   return {
     token: state.auth.token,
     bookAdded: state.bc.bookAdded,
-    isAuthorized: state.auth.isAuthorized
+    isAuthorized: state.auth.isAuthorized,
+    loading: state.bc.loading
   }
 }
 
